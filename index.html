@@ -899,76 +899,63 @@
     // 3. OPEN CASE ARCHIVES + 40 SEALED VAULT FOLDERS (F01 - F40)
     // =========================================================================
     const OPEN_CASE_FILES = [
-      {
-        id: "00_CASE_BRIEFING",
-        title: "00_CASE_BRIEFING.TXT",
-        content: `FEDERAL BUREAU OF INVESTIGATION — COLD CASE DIVISION
-FILE ID: 11.11.2006-EV | STATUS: REOPENED FORENSIC AUDIT
-VICTIM: Eleanor Vance (Age 24, Acoustic Archivist & Signal Analyst)
-LAST CONFIRMED SIGHTING: November 11, 2006, 23:11 EST — Duskwood Forest / Blackwood Creek Perimeter
+  { id: "01_BRIEF", title: "01_CASE_BRIEFING.TXT", size: "14.2 KB", content: "FEDERAL BUREAU OF INVESTIGATION - COLD CASE DIVISION
+FILE ID: 11.11.2006-EV | CLASSIFICATION: TOP SECRET // NOFORN
+SUBJECT: Disappearance of Eleanor Vance (Age 24, Acoustic Archivist)
 
-INVESTIGATION DIRECTIVE:
-1. All 40 encrypted folders (F01 through F40) require exact decryption keys recovered across this workstation.
-2. Check your Duskwood Comm Link [24], Audio & Live VHF Radio Scanner, CCTV Matrix, Eleanor Cloud Dump, Evidence Red-String Board, Duskwood Chronicle Forum, UV Darkroom, and Forensics CLI.
-3. Uncover the exact Suspect Name and the Master Keycode to execute the Final Verdict.`
-      },
-      {
-        id: "01_SIGNALS_MORSE",
-        title: "01_SIGNALS_MORSE.TXT",
-        content: `RECOVERED LOW-BAND VHF MORSE INTERCEPT (TOWER 4 — DUSKWOOD)
-FREQUENCY: 44.80 MHz | TIMESTAMP: 11/11/2006 23:14:09
+EXECUTIVE SUMMARY:
+On November 11, 2006 at 21:42 EST, Eleanor Vance vanished from the Duskwood Municipal Archive basement shortly after recording an anomalous 19.0 Hz infrasound carrier wave. Local police initially ruled the incident a voluntary departure, overlooking erased security tapes, a wiped workstation drive, and an encrypted dead-man switch left inside her personal terminal.
 
-RAW PULSES:
-.... .- .-. -... --- .-.
+INVESTIGATIVE DIRECTIVE:
+1. Cross-reference all 24 Duskwood Persons of Interest via Comm Link.
+2. Analyze intercepted radio frequencies in Audio & Radio Scanner.
+3. Decrypt all 40 Sealed Vaults using clues gathered from witness testimonies, forensic logs, and Duskwood Chronicle archives.
+4. Submit the final Master Override Verdict once the perpetrator and accomplice are confirmed." },
+  { id: "02_SUSPECTS", title: "02_SUSPECT_DOSSIERS.DAT", size: "28.6 KB", content: "DUSKWOOD TASKFORCE - PRIMARY SUSPECT MATRIX (CONFIDENTIAL)
+====================================================================
+[POI-01] JULIAN MERCER (34) - Lead Acoustic Engineer, WKDW Radio
+- Alibi: Claims he was recalibrating the studio transmitter until 22:30.
+- Discrepancy: Cell tower logs place his burner phone near Site Jota storm drain at 21:50. Possesses technical mastery of 19.0 Hz infrasound modulation.
 
-[NOTE: Decode International Morse into a 6-letter uppercase English word for F02.]`
-      },
-      {
-        id: "02_CIPHERS_ENCRYPTED",
-        title: "02_CIPHERS_ENCRYPTED.TXT",
-        content: `RECOVERED POCKET NOTEBOOK CIPHER (FOUND NEAR PINE RIDGE TRAIL)
-SHIFT PARAMETER: CAESAR +3 (SHIFT EACH LETTER BACKWARD BY 3 TO DECODE)
+[POI-02] DR. ARIS THORNE (52) - Director, Duskwood Heritage Foundation
+- Alibi: Attending a private donor dinner at Blackwood Manor.
+- Discrepancy: Transferred $45,000 in untraceable bearer bonds three days prior to the disappearance. Controls keycard access to Sub-Level B.
 
-CIPHERTEXT:
-Z L Q W H U P R R Q
+[POI-03] HANNAH DONFORT (26) - Eleanor Vance Co-Archivist
+- Alibi: Reported Eleanor missing at 07:15 the following morning.
+- Discrepancy: Deleted 14 encrypted SMS threads from her handset at 02:11 AM. Knows the cipher structure behind Eleanor personal notebook.
 
-[NOTE: Decoded 10-letter uppercase word unlocks F05.]`
-      },
-      {
-        id: "03_GIT_REPOSITORY",
-        title: "03_GIT_REPOSITORY.TXT",
-        content: `LOCAL GIT REPOSITORY SNAPSHOT — ELEANOR_WORKSTATION
-BRANCH: master | TOTAL COMMITS: 14
+[POI-04] MARCUS VANE (41) - Night Shift Security Supervisor
+- Alibi: Patrol round on East Wing perimeter.
+- Discrepancy: Disabled CCTV Loop #4 manually for 18 minutes between 21:35 and 21:53." },
+  { id: "03_FORENSICS", title: "03_FORENSIC_AUDIO_LOG.TXT", size: "19.8 KB", content: "FBI QUANTICO AUDIO FORENSICS LAB - SPECTROGRAM REPORT
+EVIDENCE TAG: #EV-2006-1111-WAV
+====================================================================
+00:00 - 00:14 : Ambient fluorescent hum (60 Hz) inside Archive Room B.
+00:15 - 00:29 : Heavy steel door unlatching. Footsteps (approx. 82 kg subject).
+00:30 - 00:44 : Eleanor Vance voice detected: \"You were never supposed to find the master tape. If you broadcast that frequency over WKDW, the whole town will hear it.\"
+00:45 - 00:58 : Unidentified male voice (filtered): \"Hand over the decryption key, Eleanor. Thorne already cleared the vault.\"
+00:59 - 01:12 : Sudden 19.0 Hz infrasound burst followed by microphone clipping and abrupt carrier drop.
 
-commit 9f81c2e (HEAD -> master)
-Author: E. Vance <evance@bureaulab.internal>
-Date:   Sat Nov 11 22:58:14 2006 -0500
-    Upload raw acoustic telemetry before heading to creek
+FORENSIC NOTE: Hidden FSK data packets are embedded inside frequencies 94.3 FM, 101.7 FM, and 107.9 FM on the Duskwood Radio band." },
+  { id: "04_TOWERS", title: "04_CELL_TOWER_PINGS.CSV", size: "11.4 KB", content: "TIMESTAMP_EST,TOWER_ID,SECTOR,SUBSCRIBER_ALIAS,SIGNAL_DBM,NOTES
+2006-11-11 21:15:04,DW-NORTH-01,SEC-A,ELEANOR_VANCE,-64,Archive Basement Relay
+2006-11-11 21:28:41,DW-NORTH-01,SEC-B,JULIAN_MERCER,-59,Approaching Municipal Perimeter
+2006-11-11 21:36:12,DW-NORTH-01,SEC-B,MARCUS_VANE,-52,Security Booth Override Terminal
+2006-11-11 21:44:50,DW-FOREST-04,SEC-C,BURNER_7749,-78,Moving toward Pine Ridge Tunnel
+2006-11-11 21:52:19,DW-FOREST-04,SEC-C,ELEANOR_VANCE,-91,Last Packet Before Battery Removal
+2006-11-11 22:08:33,DW-SOUTH-02,SEC-A,ARIS_THORNE,-61,Outbound Call to Offshore Routing
+2006-11-11 23:41:09,DW-LAKE-03,SEC-D,HANNAH_DONFORT,-73,Stationary near Old Boathouse" },
+  { id: "05_MANUAL", title: "05_VAULT_DECRYPTION_GUIDE.TXT", size: "9.5 KB", content: "FBI OS 98 FIELD AGENT MANUAL - VAULT DECRYPTION PROTOCOL
+====================================================================
+Each of the 40 Sealed Vaults (F01 - F40) contains critical evidence fragments protected by SHA-256 cryptographic locks.
 
-commit 4b77a19
-Author: E. Vance <evance@bureaulab.internal>
-Date:   Sat Nov 11 21:40:02 2006 -0500
-    Patch tape splice detector
-
-commit 8a4d2c9
-Author: E. Vance <evance@bureaulab.internal>
-Date:   Sat Nov 11 19:15:47 2006 -0500
-    Backup vault key for F06 inside commit hash: 8A4D2C9
-
-commit 1c09e44
-Author: E. Vance <evance@bureaulab.internal>
-Date:   Sat Nov 11 16:04:11 2006 -0500
-    Initial workspace commit`
-      },
-      {
-        id: "04_FORENSIC_NOTES",
-        title: "04_FORENSIC_NOTES.TXT",
-        content: `FIELD LAB OBSERVATIONS — ANALYST COLE
-- Eleanor's 1998 analog cassette recorder was found inside her locked trunk with Tape #01 still loaded.
-- Listen closely to the Spoken English Radio Scanner & Audio Lab: dispatchers and intercepted broadcasts reveal exact vault keys!
-- Several townsfolk on Duskwood_Chronicle.net and in Eleanor's Cloud Gallery noticed a dark sedan with a missing front grille near Ravenhill Ridge.`
-      }
-    ];
+HOW TO OBTAIN VAULT PASSWORDS:
+- Interrogate all 24 contacts in Comm Link; pay close attention to dates, badge numbers, frequencies, and names mentioned in their replies.
+- Tune the Audio & Radio Scanner to active emergency and FM channels to hear live English voice intercepts.
+- Check the Duskwood Chronicle Browser for local news reports and investigative hints.
+- Inspect the Red-String Evidence Board to link suspects, locations, and acoustic anomalies." }
+];
 
     const SEALED_VAULTS = [
       { id: "F01", name: "F01_CRIME_SCENE_LOG", source: "Verify in Forensics CLI ('status') or Check-In Log", content: "CRIME SCENE LOG: Tire tracks at Blackwood Creek match a 1999 dark sedan. Right rear tire shows a worn 3mm diagonal cut. Key for F09 is the four-digit incident year: 2006." },
@@ -2690,5 +2677,5 @@ Date:   Sat Nov 11 16:04:11 2006 -0500
       }
     }, 1000);
   </script>
-</body>
+<script>window.speakEnglish=function(t){try{window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=0.92;u.pitch=0.85;window.speechSynthesis.speak(u);}catch(e){}};document.addEventListener("click",function(e){const b=e.target.closest("button");if(!b)return;const txt=b.innerText||"";if(/play|scan|94\.3|101\.7|107\.9|intercept|broadcast|audio/i.test(txt)){const box=b.closest(".win98-window")||document.body;const p=box.querySelector(".font-mono, pre, p");speakEnglish(p?p.innerText.slice(0,220):"Duskwood emergency frequency active. Signal locked at nineteen hertz.");}});</script></body>
 </html>
