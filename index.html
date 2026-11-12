@@ -2799,101 +2799,118 @@
     }
   </script>
 
-<!-- ALL_SMS_EXTRA - all dialogues longer + player talks more - inside SMS -->
+
+
+
+<!-- LONG_DIALOGUE_INSIDE - longer talk inside existing game dialogue, no new bar -->
 <script>
-const ALL_SMS_EXTRA = {
-"rida": [
-"YOU: Rida, wait. Explain me that 14kW spike again. Slowly. I need to understand it before I tell anyone.",
-"Rida ❤️: Okay partner. 21:47:12. Substation. Spike. Not a cut. A surge. Like someone plugged something BIG in for 36 seconds then pulled it.",
-"YOU: 36 seconds is too precise to be random. That's a timer. Or a machine.",
-"Rida ❤️: Exactly! That's what I thought! And Studio B logged an acoustic surge at the SAME second. 21:47:12. Same 36 seconds.",
-"YOU: So someone used sound to hide power? Or power to hide sound?",
-"Rida ❤️: Both. You hide one with the other. Classic. Whoever did this knows Duskwood grid better than the engineers.",
-"YOU: And you said Cole asked about me? What did you tell him?",
-"Rida ❤️: I told him nothing. I said you were just checking old logs. But partner... he knew about the spike BEFORE I told him. How?",
-"YOU: Then we don't tell Cole. Not yet. We tell no one until we check that F31 note again. Promise me.",
-"Rida ❤️: I promise. PRV only. You and me. No group chat."
+const LONG_DIALOGUE_INSIDE = {
+"ELEANOR": [
+["ELEANOR","...Are you here to ask me again?"],
+["YOU","No. I'm not here to ask you again. I'm here to stay. To listen. As long as it takes."],
+["ELEANOR","Everyone else wanted the timeline. 21:14, 21:32. Like I'm a clock."],
+["YOU","You're not a clock. Tell me what you FELT. Not what time it was."],
+["ELEANOR","I felt cold. And I felt if I go back to that house, something bad will happen. So I kept walking."],
+["YOU","Where did you go? Don't skip. Walk me through it step by step."],
+["ELEANOR","To the old station. Miller Street. I used to go there when I was 16. I thought no one knew."],
+["YOU","And the man? Brown jacket? Tell me everything about him. His voice, his hands, how he stood."],
+["ELEANOR","He didn't hurt me. He said: 'You look like someone running FROM something, not TO something.' And I cried."],
+["YOU","Why did you cry? Because he was right?"],
+["ELEANOR","Yes. Because he was right. And because a stranger saw me better than people who know me for years."],
+["YOU","Did he say anything else? Think hard. Any word, any detail."],
+["ELEANOR","He said... 'Don't go home tonight.' The SAME words as the message. 21:08. 'Don't come home tonight.'"],
+["YOU","Wait. The SAME words? Eleanor, that's not a coincidence. He knew about the message."],
+["ELEANOR","I know. That's why I didn't tell anyone. I was scared you'd think I made it up."],
+["YOU","I believe you. And I'm not leaving. We'll talk as long as you need. What happened after he left?"],
+["ELEANOR","I sat there. For 47 minutes. Watching trains that don't come. And I thought... if I disappear, maybe the calls will stop."],
+["YOU","They won't stop if we run. We have to face them. Together. Will you stay and talk with me?"],
+["ELEANOR","...Okay. Stay. Don't go. Let's keep talking."]
 ],
-"martha": [
-"YOU: Martha, it's me. I need the truth about Nov 11. Not the mother version. The real version.",
-"Martha Vance (Mother): Agent... I've been waiting for someone to ask me that properly. Eleanor didn't leave because she was angry. She left because she was scared.",
-"YOU: Scared of who? Of what happened in that house?",
-"Martha Vance (Mother): Scared of the phone calls. Blocked number. Every night at 21:08. For two weeks. She never told you that, did she?",
-"YOU: No. She told me about one message. 'Don't come home tonight.' I didn't know about the calls.",
-"Martha Vance (Mother): She hid them from everyone. She thought if she ignored them, they'd stop. They didn't stop. They got worse.",
-"YOU: Why didn't you tell the police?",
-"Martha Vance (Mother): I did. They said 'it's just prank calls.' But a mother knows. A mother KNOWS when it's not a prank.",
-"YOU: Martha, I believe you. And I'm not leaving this case until we find who called her. Stay with her tonight, okay?",
-"Martha Vance (Mother): I will. I won't leave her side. Thank you for actually listening to me."
+"MARTHA": [
+["MARTHA","Agent, Eleanor hasn't slept since Nov 11."],
+["YOU","Martha, I need the real story. Not the mother version to protect her. The truth."],
+["MARTHA","She got calls. Blocked number. 21:08. Every night. Two weeks. She pretended it was nothing."],
+["YOU","Why didn't you force her to tell the police? Why did you let her hide it?"],
+["MARTHA","I tried! I told the police! They said 'prank calls'. But I'm her mother, I KNOW when she's terrified."],
+["YOU","What did the voice say? Breathe? Words? Male? Female?"],
+["MARTHA","Just breathing. 40 seconds. Then hang up. No words. Like someone was... watching her breathe."],
+["YOU","Did you see anyone? A car? A person near the house?"],
+["MARTHA","Black car. No plates. Twice. Across the street. 21:14 and 21:32. I wrote it down."],
+["YOU","Martha, you just gave me the timeline. That's huge. Why didn't you tell me this on day one?"],
+["MARTHA","Because I was scared you'd think I'm a crazy mother. And they'd take my daughter away."],
+["YOU","No one is taking her away. Stay with her tonight. And keep writing everything down. Every car, every call."],
+["MARTHA","I will. And Agent... thank you for staying to talk. No one stayed to talk before."],
+["YOU","I'm staying. We'll talk as long as it takes. This case doesn't close until we know who called."]
 ],
-"cole": [
-"YOU: Cole, we need to talk. Off the record. What do you know about the 21:47 spike?",
-"Agent Cole (FBI): ...Who told you about that? That log was supposed to be sealed.",
-"YOU: I have my sources. And I know you asked Rida about me. So let's stop playing games.",
-"Agent Cole (FBI): Look, I'm trying to protect this case. And protect you. There are 24 people in that Comm Link. Not all of them are clean.",
-"YOU: Then help me. Don't hide logs from me. If Studio B and the substation spiked at the same second, that's our link.",
-"Agent Cole (FBI): Fine. You want the truth? I was at the substation that night. 21:30. Checking a report. I saw someone. Brown jacket. I didn't get a face.",
-"YOU: Brown jacket? Rida said Eleanor met a man in a brown jacket at the old station. Same man?",
-"Agent Cole (FBI): Maybe. I don't know. That's why I didn't put it in the report. I didn't want to contaminate Eleanor's story.",
-"YOU: Cole, from now on, no more secrets between us. We work this together, or I work it alone.",
-"Agent Cole (FBI): Together. I promise. But be careful in that group chat. Someone is reading everything."
+"COLE": [
+["COLE","We need to talk. Off the record."],
+["YOU","Off the record? Cole, you hid the 21:47 spike. Let's start there. Why?"],
+["COLE","That log was sealed. If I show it, I lose my badge."],
+["YOU","And if you hide it, we lose Eleanor. Which matters more?"],
+["COLE","...Eleanor. You're right. I was at the substation at 21:30. I saw someone."],
+["YOU","Describe him. Don't skip. Height, jacket, bag, how he walked."],
+["COLE","Brown jacket. 40s. Carrying a case. He saw me and walked away fast. Radio died for 11 seconds."],
+["YOU","11 seconds. Same as cabin camera loop. Same as Jake found. You know what that means?"],
+["COLE","Insider. Someone who knows Duskwood system. Someone in that group chat, maybe."],
+["YOU","Then why did you ask Rida about me? Did you think I'M the insider?"],
+["COLE","I had to check. I check everyone. Even you. Especially you, because you're close to this case."],
+["YOU","Fine. Check me. But from now on, no more secrets. We talk. Every day. Every log. Deal?"],
+["COLE","Deal. And Agent... I'm sorry I didn't trust you at first. Let's work this together."],
+["YOU","Together. And Cole, next time you see that man, you call me first. Not the report. Me."]
 ],
-"jake": [
-"YOU: Jake, Ghost_0x. I need your help. No FBI report. Just you and me.",
-"Jake (Ghost_0x): Finally. Someone who asks properly. What do you need, Agent?",
-"YOU: The Duskwood power grid logs. Nov 11. 21:47. Can you get the raw telemetry, not the cleaned version?",
-"Jake (Ghost_0x): Already got it. I pulled it 3 days ago. The cleaned version hides a second spike. 21:52. Smaller. 4kW. Same substation.",
-"YOU: A second spike? Why would they hide it?",
-"Jake (Ghost_0x): Because 21:52 is when the cabin camera went dark for 11 seconds. 11 seconds. Not a glitch. A loop.",
-"YOU: So someone looped the camera AND spiked the grid? That's professional.",
-"Jake (Ghost_0x): Very professional. This isn't a random case, Agent. This is someone who knew the system. Insider.",
-"YOU: Send me the raw logs. PRV only. And Jake... don't tell the group chat.",
-"Jake (Ghost_0x): I never tell the group chat anything real. That's why I'm Ghost."
+"RIDA": [
+["RIDA","Hey partner, I knew you'd message me first."],
+["YOU","Rida, no cute stuff. Tell me about the spike. Slowly. All of it."],
+["RIDA","21:47:12. Substation. 36 seconds. And Studio B had an acoustic surge at the SAME second."],
+["YOU","So someone used power to hide sound? Or sound to hide power?"],
+["RIDA","Both. You hide one with the other. Whoever did this knows the grid better than the engineers."],
+["YOU","And Cole? You said he asked about me. What exactly did he say?"],
+["RIDA","He asked if you found the spike. Twice. He knew BEFORE I told him. How?"],
+["YOU","Then we tell NO ONE. Not the group chat. Not Cole. Just you and me. Clear?"],
+["RIDA","Clear. But can I ask you something? Why do you trust me and not them?"],
+["YOU","Because you gave me the raw logs. Everyone else gave me the clean version. You didn't lie."],
+["RIDA","...No one ever said that to me. Okay, I'll pull the 21:52 second spike tonight. For you."],
+["YOU","And don't tell Martha yet. Let me check one more log. Promise me we'll keep talking?"],
+["RIDA","I promise. PRV only. You and me. As long as it takes."],
+["YOU","Good. Because this conversation isn't over. We're just starting."]
 ]
 };
-let _allDone={};
-function _allTry(){
-  const txt = document.body.innerText || "";
-  for(const key in ALL_SMS_EXTRA){
-    if(_allDone[key]) continue;
-    // check if this chat is open - search for name
-    let name = key==="rida"?"rida":key==="martha"?"Martha":key==="cole"?"Cole":key==="jake"?"Jake":"";
-    if(!name) continue;
-    const els=[...document.querySelectorAll('*')].filter(e=>e.children.length<5 && e.textContent && e.textContent.includes(name) && e.textContent.includes('HEART')===false);
-    // simple: if user clicked this chat, the chat window contains that name + messages
-    // we trigger when that name appears in a large container
-    const chatEl=[...document.querySelectorAll('*')].find(e=>e.textContent && e.textContent.includes('HEART1111') && e.textContent.includes(name));
-    // fallback: if any chat is open and we haven't added yet, add for the visible chat only via click tracking
-  }
+// Hook: when game shows a dialogue, we extend it by intercepting clicks on existing dialogue NEXT button
+// We do NOT create new UI. We reuse the game's own dialogue box.
+let _longIdx = {};
+let _longActive = null;
+function _longFindDlgBox(){
+  const els = [...document.querySelectorAll('*')];
+  // l9a l'box dyal dialogue l'9dim dyal l'jeu - li fih Eleanor / Martha etc
+  return els.find(e=>e.textContent && (e.textContent.includes('ELEANOR') || e.textContent.includes('MARTHA')) && e.offsetHeight>100 && e.children.length<10);
 }
-// Simpler + safer: add a small "LOAD FULL HISTORY" logic - when user opens ANY chat, append that person's full history after 1.5s
-let _lastChat="";
-document.addEventListener('click', ()=>{
-  setTimeout(()=>{
-    const bodyTxt = document.body.innerText || "";
-    let target=null;
-    if(bodyTxt.includes("Rida") && bodyTxt.includes("HEART1111")) target="rida";
-    else if(bodyTxt.includes("Martha Vance")) target="martha";
-    else if(bodyTxt.includes("Agent Cole")) target="cole";
-    else if(bodyTxt.includes("Ghost_0x") || bodyTxt.includes("Jake")) target="jake";
-    if(!target || _allDone[target]) return;
-    // find chat container = element containing HEART or Martha etc with big height
-    let container=null;
-    const all=[...document.querySelectorAll('div')];
-    for(const d of all){ if(d.scrollHeight>400 && d.textContent.includes(target==="rida"?"HEART1111":target==="martha"?"Martha":target==="cole"?"Cole":"Ghost")){ container=d; } }
-    if(!container) return;
-    ALL_SMS_EXTRA[target].forEach(msg=>{
-      const div=document.createElement('div');
-      const isYou = msg.startsWith("YOU:");
-      div.style.cssText = isYou ? "margin:8px 0 8px 40px;padding:10px 12px;background:#0a3a1a;border:1px solid #00ff41;border-radius:10px;font-size:13px;line-height:1.6;white-space:pre-wrap;color:#eaffea" : "margin:8px 40px 8px 0;padding:10px 12px;background:#1a2a3a;border-radius:10px;font-size:13px;line-height:1.6;white-space:pre-wrap";
-      div.textContent=msg;
-      container.appendChild(div);
-    });
-    _allDone[target]=true;
-  }, 1200);
+document.addEventListener('click', (e)=>{
+  const txt = (e.target.textContent||"").trim();
+  // ila l'user cliqua 3la smiya dyal personnage f l'jeu, bda dialogue twil f nafs l'box dyal l'jeu
+  const names = ["ELEANOR","MARTHA","COLE","RIDA"];
+  const hit = names.find(n=>txt.toUpperCase().includes(n));
+  if(hit && LONG_DIALOGUE_INSIDE[hit]){
+    // n'7awlo n'l9aw l'box dyal dialogue l'9dim
+    setTimeout(()=>{
+      let box = _longFindDlgBox();
+      if(!box) return;
+      if(_longActive===hit) return;
+      _longActive=hit; _longIdx[hit]=0;
+      const lines = LONG_DIALOGUE_INSIDE[hit];
+      const orig = box.innerHTML;
+      function render(){
+        if(_longIdx[hit]>=lines.length){ _longActive=null; box.innerHTML=orig; return; }
+        const [who,msg]=lines[_longIdx[hit]];
+        box.innerHTML = '<div style="padding:14px;line-height:1.8"><b>'+who+'</b><br>'+msg+'<br><br><button id="longNext" style="background:#00ff41;color:#000;padding:10px 16px;font-weight:bold;cursor:pointer">NEXT ▶ '+(_longIdx[hit]+1)+' / '+lines.length+'</button> <button id="longAsk" style="background:#222;color:#fff;padding:10px 16px;cursor:pointer">💬 Keep talking</button></div>';
+        document.getElementById('longNext').onclick=()=>{ _longIdx[hit]++; render(); };
+        document.getElementById('longAsk').onclick=()=>{ box.innerHTML='<div style="padding:14px;line-height:1.8"><b>YOU</b><br>Tell me more. Don\'t stop. I\'m staying here with you. Keep talking.<br><br><button id="longNext2" style="background:#00ff41;color:#000;padding:10px 16px;font-weight:bold;cursor:pointer">CONTINUE ▶</button></div>'; document.getElementById('longNext2').onclick=()=>{ _longIdx[hit]++; render(); }; };
+      }
+      render();
+    }, 300);
+  }
 });
 </script>
-<!-- END ALL_SMS_EXTRA -->
+<!-- END LONG_DIALOGUE_INSIDE -->
 
 </body>
 </html>
