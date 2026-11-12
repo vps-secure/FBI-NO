@@ -1,0 +1,2802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FBI OS 98 — Cold Case 11.11.2006: Eleanor Vance</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* =====================================================================
+       CLASSIC WINDOWS 95 / 98 SYSTEM PALETTE & BEVELED 3D ARCHITECTURE
+       ===================================================================== */
+    :root {
+      --win-bg: #c0c0c0;
+      --win-light: #ffffff;
+      --win-midlight: #dfdfdf;
+      --win-shadow: #808080;
+      --win-dark: #404040;
+      --win-navy: #000080;
+      --win-navy-grad: #1084d0;
+      --win-teal: #008080;
+      --win-text: #000000;
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    input, textarea, .selectable-text {
+      user-select: text;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Tahoma", "MS Sans Serif", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      background-color: var(--win-teal);
+      color: var(--win-text);
+    }
+
+    /* Classic Win98 Raised Panel */
+    .win98-raised {
+      background-color: var(--win-bg);
+      border-top: 2px solid var(--win-light);
+      border-left: 2px solid var(--win-light);
+      border-right: 2px solid var(--win-dark);
+      border-bottom: 2px solid var(--win-dark);
+      box-shadow: inset 1px 1px 0 var(--win-midlight), inset -1px -1px 0 var(--win-shadow);
+    }
+
+    /* Classic Win98 Sunken Panel */
+    .win98-sunken {
+      background-color: #ffffff;
+      border-top: 2px solid var(--win-shadow);
+      border-left: 2px solid var(--win-shadow);
+      border-right: 2px solid var(--win-light);
+      border-bottom: 2px solid var(--win-light);
+      box-shadow: inset 1px 1px 0 var(--win-dark), inset -1px -1px 0 var(--win-midlight);
+    }
+
+    /* Classic Win98 Interactive Button */
+    .win98-btn {
+      background-color: var(--win-bg);
+      border-top: 2px solid var(--win-light);
+      border-left: 2px solid var(--win-light);
+      border-right: 2px solid var(--win-dark);
+      border-bottom: 2px solid var(--win-dark);
+      box-shadow: inset 1px 1px 0 var(--win-midlight), inset -1px -1px 0 var(--win-shadow);
+      color: #000000;
+      cursor: pointer;
+      font-family: inherit;
+      transition: none;
+    }
+
+    .win98-btn:active, .win98-btn.active-tab {
+      border-top: 2px solid var(--win-dark);
+      border-left: 2px solid var(--win-dark);
+      border-right: 2px solid var(--win-light);
+      border-bottom: 2px solid var(--win-light);
+      box-shadow: inset 1px 1px 0 var(--win-shadow);
+      padding-top: 1px;
+      padding-left: 1px;
+    }
+
+    .win98-btn:focus-visible {
+      outline: 1px dotted #000000;
+      outline-offset: -4px;
+    }
+
+    /* Classic Win98 Title Bar */
+    .win98-titlebar {
+      background: linear-gradient(90deg, var(--win-navy), var(--win-navy-grad));
+      color: #ffffff;
+      font-weight: bold;
+      letter-spacing: 0.2px;
+      padding: 3px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: move;
+    }
+
+    .win98-titlebar.inactive {
+      background: linear-gradient(90deg, #808080, #b5b5b5);
+      color: #dfdfdf;
+    }
+
+    .win98-ctrl-btn {
+      width: 18px;
+      height: 16px;
+      font-size: 11px;
+      line-height: 12px;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    /* Subtle retro CRT scanlines */
+    .crt-overlay {
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.04) 0px,
+        rgba(0, 0, 0, 0.04) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+    }
+
+    /* Classic Scrollbars */
+    ::-webkit-scrollbar {
+      width: 16px;
+      height: 16px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #dfdfdf;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c0c0c0;
+      border-top: 2px solid #ffffff;
+      border-left: 2px solid #ffffff;
+      border-right: 2px solid #404040;
+      border-bottom: 2px solid #404040;
+    }
+
+    /* Typing Indicator Pulse */
+    @keyframes blinkDot {
+      0%, 80%, 100% { opacity: 0.2; }
+      40% { opacity: 1; }
+    }
+    .typing-dot:nth-child(1) { animation: blinkDot 1.2s infinite 0s; }
+    .typing-dot:nth-child(2) { animation: blinkDot 1.2s infinite 0.2s; }
+    .typing-dot:nth-child(3) { animation: blinkDot 1.2s infinite 0.4s; }
+
+    /* Window Positioning & Mobile Responsiveness */
+    .os-window {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      min-width: 300px;
+      min-height: 220px;
+      max-width: 98vw;
+      max-height: calc(100vh - 42px);
+    }
+
+    @media (max-width: 767px) {
+      .os-window {
+        left: 1vw !important;
+        top: 6px !important;
+        width: 98vw !important;
+        height: calc(100vh - 46px) !important;
+      }
+      .win98-titlebar {
+        cursor: default;
+      }
+    }
+
+    /* 3D Badge Tilt Perspective */
+    .badge-stage {
+      perspective: 1000px;
+    }
+    .badge-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.08s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <!-- =====================================================================
+       1. STRICT DEVELOPER-ONLY LOGIN GATEWAY (NO HINTS, NO CLUES)
+       ===================================================================== -->
+  <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4" style="background: radial-gradient(circle at center, #063940 0%, #02181c 100%);">
+    <div class="crt-overlay fixed inset-0"></div>
+    <div class="win98-raised w-full max-w-xs p-1 relative z-10 shadow-2xl">
+      <div class="win98-titlebar" style="cursor: default;">
+        <span class="flex items-center gap-1.5 text-xs">
+          <span class="inline-block w-2.5 h-2.5 bg-yellow-400 border border-black"></span>
+          FBI.EXE
+        </span>
+      </div>
+      <form id="login-form" class="p-6 flex flex-col items-center gap-4 bg-[#c0c0c0]" autocomplete="off">
+        <!-- Official FBI Seal SVG -->
+        <svg viewBox="0 0 200 200" class="w-28 h-28 drop-shadow" aria-label="Official FBI Seal">
+          <defs>
+            <radialGradient id="sealGold" cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#ffe875" />
+              <stop offset="65%" stop-color="#d4af37" />
+              <stop offset="100%" stop-color="#8a6d14" />
+            </radialGradient>
+            <radialGradient id="sealBlue" cx="50%" cy="50%" r="55%">
+              <stop offset="0%" stop-color="#143a75" />
+              <stop offset="100%" stop-color="#071836" />
+            </radialGradient>
+          </defs>
+          <!-- Outer Rope Rim -->
+          <circle cx="100" cy="100" r="95" fill="url(#sealGold)" stroke="#4a3805" stroke-width="3" />
+          <circle cx="100" cy="100" r="88" fill="url(#sealBlue)" stroke="#ffe875" stroke-width="2" />
+          <!-- Inner Ring -->
+          <circle cx="100" cy="100" r="66" fill="none" stroke="#d4af37" stroke-width="2" />
+          <!-- Laurel Branches -->
+          <path d="M52,135 C38,112 38,82 54,60" fill="none" stroke="#4ade80" stroke-width="4" stroke-linecap="round" />
+          <path d="M148,135 C162,112 162,82 146,60" fill="none" stroke="#4ade80" stroke-width="4" stroke-linecap="round" />
+          <!-- Central Shield -->
+          <path d="M72,64 L128,64 L128,104 C128,128 100,144 100,144 C100,144 72,128 72,104 Z" fill="#ffffff" stroke="#d4af37" stroke-width="3" />
+          <!-- Shield Chief (Blue Top) -->
+          <path d="M73,65 L127,65 L127,84 L73,84 Z" fill="#0b254f" />
+          <!-- Red & White Stripes -->
+          <rect x="78" y="84" width="6" height="44" fill="#b91c1c" />
+          <rect x="90" y="84" width="6" height="53" fill="#b91c1c" />
+          <rect x="104" y="84" width="6" height="53" fill="#b91c1c" />
+          <rect x="116" y="84" width="6" height="44" fill="#b91c1c" />
+          <!-- Scales of Justice -->
+          <line x1="100" y1="68" x2="100" y2="122" stroke="#d4af37" stroke-width="3" />
+          <line x1="80" y1="76" x2="120" y2="76" stroke="#d4af37" stroke-width="2.5" />
+          <path d="M74,90 L80,76 L86,90 Z" fill="#ffe875" />
+          <path d="M114,90 L120,76 L126,90 Z" fill="#ffe875" />
+          <!-- Stars on Ring -->
+          <g fill="#ffe875" font-size="10" font-weight="bold" text-anchor="middle">
+            <text x="100" y="25">DEPARTMENT OF JUSTICE</text>
+            <text x="100" y="182">FEDERAL BUREAU</text>
+            <text x="24" y="104">★</text>
+            <text x="176" y="104">★</text>
+          </g>
+          <!-- Scroll Banner -->
+          <rect x="56" y="142" width="88" height="16" rx="3" fill="url(#sealGold)" stroke="#4a3805" stroke-width="1.5" />
+          <text x="100" y="153" text-anchor="middle" font-size="8.5" font-weight="bold" fill="#1a1200">FIDELITY • BRAVERY • INTEGRITY</text>
+        </svg>
+
+        <!-- Bold Title "FBI" -->
+        <h1 class="text-2xl font-extrabold tracking-widest text-black m-0">FBI</h1>
+
+        <!-- Password Input -->
+        <input
+          id="login-password"
+          type="password"
+          class="win98-sunken w-full px-2.5 py-2 text-sm font-mono text-black focus:outline-none"
+          aria-label="Password"
+          autofocus
+        />
+
+        <!-- Error Message Container (Hidden until invalid login attempt) -->
+        <div id="login-error" class="hidden w-full text-center text-xs font-bold text-red-700 bg-red-100 border border-red-700 px-2 py-1">
+          ACCESS DENIED: INVALID CLEARANCE KEY
+        </div>
+
+        <!-- LOGIN Button -->
+        <button type="submit" class="win98-btn w-full py-2 font-bold text-sm tracking-wider uppercase">
+          LOGIN
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       2. FBI OS 98 DESKTOP WORKSPACE (HIDDEN UNTIL AUTHENTICATED)
+       ===================================================================== -->
+  <div id="desktop-environment" class="hidden fixed inset-0 w-full h-full overflow-hidden">
+    <div class="crt-overlay fixed inset-0 z-40"></div>
+
+    <!-- Desktop Shortcuts Grid -->
+    <div id="desktop-icons" class="p-3 grid grid-flow-col grid-rows-6 sm:grid-rows-6 gap-3 w-max select-none">
+      <!-- Icon 1: Case Explorer -->
+      <button onclick="openAppWindow('explorer')" class="desktop-icon flex flex-col items-center w-20 p-1.5 text-white hover:bg-[#000080]/50 focus:bg-[#000080]/70 rounded-sm text-center gap-1">
+        <svg viewBox="0 0 36 36" class="w-9 h-9 drop-shadow">
+          <path d="M3,8 L14,8 L17,11 L33,11 L33,30 L3,30 Z" fill="#facc15" stroke="#000" stroke-width="1.5"/>
+          <path d="M3,13 L33,13 L33,30 L3,30 Z" fill="#fde047" stroke="#000" stroke-width="1.5"/>
+          <rect x="11" y="17" width="14" height="9" fill="#1e3a8a" stroke="#000" stroke-width="1"/>
+          <text x="18" y="23.5" text-anchor="middle" fill="#fff" font-size="5.5" font-weight="bold">40</text>
+        </svg>
+        <span class="text-xs leading-tight drop-shadow-[1px_1px_0_#000]">Case Explorer</span>
+      </button>
+
+      <!-- Icon 2: Duskwood Messenger -->
+      <button onclick="openAppWindow('messenger')" class="desktop-icon relative flex flex-col items-center w-20 p-1.5 text-white hover:bg-[#000080]/50 focus:bg-[#000080]/70 rounded-sm text-center gap-1">
+        <span id="desktop-msg-badge" class="hidden absolute top-1 right-2 bg-red-600 text-white text-[10px] font-bold px-1.5 rounded-full border border-white">0</span>
+        <svg viewBox="0 0 36 36" class="w-9 h-9 drop-shadow">
+          <rect x="4" y="6" width="28" height="20" rx="2" fill="#e0f2fe" stroke="#000" stroke-width="1.5"/>
+          <polygon points="10,26 16,26 10,32" fill="#e0f2fe" stroke="#000" stroke-width="1.5"/>
+          <line x1="9" y1="12" x2="27" y2="12" stroke="#0369a1" stroke-width="2"/>
+          <line x1="9" y1="17" x2="22" y2="17" stroke="#0369a1" stroke-width="2"/>
+        </svg>
+        <span class="text-xs leading-tight drop-shadow-[1px_1px_0_#000]">Comm Link [24]</span>
+      </button>
+
+      <!-- Icon 3: Forensic CLI Terminal -->
+      <button onclick="openAppWindow('terminal')" class="desktop-icon flex flex-col items-center w-20 p-1.5 text-white hover:bg-[#000080]/50 focus:bg-[#000080]/70 rounded-sm text-center gap-1">
+        <svg viewBox="0 0 36 36" class="w-9 h-9 drop-shadow">
+          <rect x="3" y="5" width="30" height="26" fill="#090d16" stroke="#c0c0c0" stroke-width="2"/>
+          <rect x="3" y="5" width="30" height="5" fill="#000080"/>
+          <text x="7" y="19" fill="#22c55e" font-family="monospace" font-size="9" font-weight="bold">C:\&gt;_</text>
+        </svg>
+        <span class="text-xs leading-tight drop-shadow-[1px_1px_0_#000]">Forensics CLI</span>
+      </button>
+
+      <!-- Icon 4: UV Crime Scene Darkroom -->
+      <button onclick="openAppWindow('darkroom')" class="desktop-icon flex flex-col items-center w-20 p-1.5 text-white hover:bg-[#000080]/50 focus:bg-[#000080]/70 rounded-sm text-center gap-1">
+        <svg viewBox="0 0 36 36" class="w-9 h-9 drop-shadow">
+          <rect x="4" y="6" width="28" height="24" fill="#1e1b4b" stroke="#000" stroke-width="1.5"/>
+          <circle cx="18" cy="18" r="7" fill="none" stroke="#22d3ee" stroke-width="2"/>
+          <circle cx="18" cy="18" r="2.5" fill="#22d3ee"/>
+          <text x="18" y="29" text-anchor="middle" fill="#a5f3fc" font-size="5" font-weight="bold">UV-365nm</text>
+        </svg>
+        <span class="text-xs leading-tight drop-shadow-[1px_1px_0_#000]">UV Darkroom</span>
+      </button>
+
+      <!-- Icon 5: 20 Suspects Database -->
+      <button onclick="openAppWindow('suspects')" class="desktop-icon flex flex-col items-center w-20 p-1.5 text-white hover:bg-[#000080]/50 focus:bg-[#000080]/70 rounded-sm text-center gap-1">
+        <svg viewBox="0 0 36 36" class="w-9 h-9 drop-shadow">
+          <rect x="5" y="4" width="26" height="28" fill="#f8fafc" stroke="#000" stroke-width="1.5"/>
+          <circle cx="18" cy="14" r="5" fill="#475569"/>
+          <path d="M10,27 C10,21 26,21 26,27" fill="#475569"/>
+          <rect x="8" y="27" width="20" height="3" fill="#b91c1c"/>
+        </svg>
+        <span class="text-xs leading-tight drop-shadow-[1px_1px_0_#000]">Suspects (20)</span>
+      </button>
+
+      <!-- Icon 6: Final Accusation Portal -->
+      <button onclick="openAppWindow('accusation')" class="desktop-icon flex flex-col items-center w-20 p-1.5 text-white hover:bg-[#000080]/50 focus:bg-[#000080]/70 rounded-sm text-center gap-1">
+        <svg viewBox="0 0 36 36" class="w-9 h-9 drop-shadow">
+          <polygon points="18,3 33,12 33,24 18,33 3,24 3,12" fill="#d4af37" stroke="#000" stroke-width="1.5"/>
+          <text x="18" y="21" text-anchor="middle" fill="#000" font-size="11" font-weight="bold">FBI</text>
+        </svg>
+        <span class="text-xs leading-tight drop-shadow-[1px_1px_0_#000]">Final Verdict</span>
+      </button>
+    </div>
+
+    <!-- Container for Dynamic Application Windows -->
+    <div id="windows-layer" class="fixed inset-0 pointer-events-none" style="bottom: 36px;"></div>
+
+    <!-- Win98 Vault Password Modal Dialog -->
+    <div id="vault-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+      <div class="win98-raised w-full max-w-sm p-1 shadow-xl">
+        <div class="win98-titlebar" style="cursor: default;">
+          <span id="vault-modal-title" class="text-xs truncate">SEALED VAULT AUTHENTICATION</span>
+          <button type="button" onclick="closeVaultModal()" class="win98-btn win98-ctrl-btn">×</button>
+        </div>
+        <form id="vault-modal-form" class="p-4 flex flex-col gap-3 bg-[#c0c0c0]" autocomplete="off">
+          <div class="flex items-start gap-3">
+            <svg viewBox="0 0 32 32" class="w-9 h-9 shrink-0">
+              <rect x="6" y="14" width="20" height="14" rx="2" fill="#eab308" stroke="#000" stroke-width="1.5"/>
+              <path d="M10,14 L10,9 C10,5 22,5 22,9 L22,14" fill="none" stroke="#404040" stroke-width="3"/>
+              <circle cx="16" cy="20" r="2" fill="#000"/>
+            </svg>
+            <div class="text-xs leading-relaxed">
+              <div id="vault-modal-folder-name" class="font-bold text-black text-sm">F01_CRIME_SCENE_LOG</div>
+              <div id="vault-modal-source" class="text-gray-800 mt-1 bg-[#dfdfdf] p-1.5 border border-gray-500">
+                Forensic Source Note
+              </div>
+            </div>
+          </div>
+          <div>
+            <label for="vault-password-input" class="block text-xs font-bold mb-1">ENTER VAULT DECRYPTION KEY:</label>
+            <input id="vault-password-input" type="text" class="win98-sunken w-full px-2 py-1.5 font-mono text-sm uppercase" />
+          </div>
+          <div id="vault-modal-error" class="hidden text-xs font-bold text-red-700 bg-red-100 border border-red-700 px-2 py-1">
+            INVALID VAULT KEY — DECRYPTION FAILED
+          </div>
+          <div class="flex justify-end gap-2 pt-1">
+            <button type="submit" class="win98-btn px-4 py-1.5 text-xs font-bold">UNLOCK</button>
+            <button type="button" onclick="closeVaultModal()" class="win98-btn px-4 py-1.5 text-xs">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Classic Start Menu -->
+    <div id="start-menu" class="hidden fixed bottom-9 left-0 z-50 win98-raised w-64 p-1 flex shadow-2xl">
+      <div class="w-7 bg-gradient-to-b from-[#000080] to-[#1084d0] flex items-end justify-center pb-2">
+        <span class="text-white font-bold text-xs tracking-widest" style="writing-mode: vertical-rl; transform: rotate(180deg);">FBI OS 98</span>
+      </div>
+      <div class="flex-1 flex flex-col py-1">
+        <button onclick="openAppWindow('explorer'); toggleStartMenu(false);" class="flex items-center gap-2.5 px-3 py-2 text-left text-xs hover:bg-[#000080] hover:text-white">
+          <span class="font-bold">📁</span> Case Explorer (40 Vaults)
+        </button>
+        <button onclick="openAppWindow('messenger'); toggleStartMenu(false);" class="flex items-center gap-2.5 px-3 py-2 text-left text-xs hover:bg-[#000080] hover:text-white">
+          <span class="font-bold">💬</span> Duskwood Comm Link [24]
+        </button>
+        <button onclick="openAppWindow('terminal'); toggleStartMenu(false);" class="flex items-center gap-2.5 px-3 py-2 text-left text-xs hover:bg-[#000080] hover:text-white">
+          <span class="font-bold">⌨️</span> FBI_FORENSICS.EXE (CLI)
+        </button>
+        <button onclick="openAppWindow('darkroom'); toggleStartMenu(false);" class="flex items-center gap-2.5 px-3 py-2 text-left text-xs hover:bg-[#000080] hover:text-white">
+          <span class="font-bold">🔦</span> UV Crime Scene Darkroom
+        </button>
+        <button onclick="openAppWindow('suspects'); toggleStartMenu(false);" class="flex items-center gap-2.5 px-3 py-2 text-left text-xs hover:bg-[#000080] hover:text-white">
+          <span class="font-bold">🗂️</span> Suspect Dossiers (20)
+        </button>
+        <div class="border-t border-gray-500 my-1"></div>
+        <button onclick="openAppWindow('accusation'); toggleStartMenu(false);" class="flex items-center gap-2.5 px-3 py-2 text-left text-xs font-bold hover:bg-[#000080] hover:text-white">
+          <span>⚖️</span> Final Accusation Portal
+        </button>
+      </div>
+    </div>
+
+    <!-- Bottom Windows 98 Taskbar -->
+    <div id="taskbar" class="fixed bottom-0 left-0 right-0 h-9 win98-raised z-50 flex items-center px-1 gap-1.5">
+      <button id="start-btn" onclick="toggleStartMenu()" class="win98-btn px-2.5 py-1 flex items-center gap-1.5 font-bold text-xs shrink-0">
+        <span class="inline-block w-3 h-3 bg-gradient-to-tr from-blue-800 via-yellow-400 to-red-600 border border-black"></span>
+        Start
+      </button>
+
+      <div class="h-6 border-l border-gray-500 border-r border-white mx-0.5"></div>
+
+      <!-- Open Window Tabs -->
+      <div id="taskbar-tabs" class="flex-1 flex items-center gap-1 overflow-x-auto h-full py-0.5"></div>
+
+      <!-- Persistent Vault Counter & Clock -->
+      <div class="win98-sunken px-2.5 py-1 flex items-center gap-3 text-xs shrink-0 bg-[#c0c0c0]">
+        <span id="taskbar-vault-counter" class="font-bold text-[#000080]">VAULTS UNLOCKED: 0 / 40</span>
+        <span class="border-l border-gray-500 pl-2 font-mono" id="taskbar-clock">11:11 PM</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       3. FATIMA VICTORY DEDICATION SCREEN (UNLOCKED AT 40/40 + TRUE KILLER + FINAL CODE)
+       ===================================================================== -->
+  <div id="fatima-victory-screen" class="hidden fixed inset-0 z-50 overflow-y-auto" style="background: radial-gradient(circle at top, #2a0818 0%, #0d0308 55%, #000000 100%);">
+    <canvas id="hearts-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-4 py-10 flex flex-col items-center text-center gap-6">
+      <div class="inline-block px-4 py-1 rounded-full border border-amber-400/60 bg-amber-500/10 text-amber-300 text-xs font-bold tracking-widest uppercase">
+        COLD CASE 11.11.2006 SOLVED • 40 / 40 VAULTS UNLOCKED • JULIAN MERCER APPREHENDED
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-rose-300 drop-shadow">
+        Dedicated Forever to Fatima
+      </h1>
+
+      <!-- Interactive 3D-Tilting Gold FBI Master Detective Badge -->
+      <div id="badge-stage" class="badge-stage py-3 cursor-grab active:cursor-grabbing">
+        <div id="gold-badge-3d" class="badge-3d w-56 h-56 sm:w-64 sm:h-64 mx-auto drop-shadow-[0_20px_35px_rgba(234,179,8,0.45)]">
+          <svg viewBox="0 0 240 240" class="w-full h-full">
+            <defs>
+              <linearGradient id="masterGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fff3a8" />
+                <stop offset="30%" stop-color="#eab308" />
+                <stop offset="70%" stop-color="#ca8a04" />
+                <stop offset="100%" stop-color="#fef08a" />
+              </linearGradient>
+              <radialGradient id="crimsonCore" cx="50%" cy="45%" r="55%">
+                <stop offset="0%" stop-color="#9f1239" />
+                <stop offset="100%" stop-color="#4c0519" />
+              </radialGradient>
+            </defs>
+            <!-- 7-Point Starburst Shield -->
+            <polygon
+              points="120,8 148,44 195,38 192,85 228,116 196,151 206,197 159,196 135,234 120,192 105,234 81,196 34,197 44,151 12,116 48,85 45,38 92,44"
+              fill="url(#masterGold)"
+              stroke="#713f12"
+              stroke-width="3"
+            />
+            <circle cx="120" cy="120" r="76" fill="url(#crimsonCore)" stroke="#fef08a" stroke-width="3" />
+            <circle cx="120" cy="120" r="64" fill="none" stroke="#eab308" stroke-width="1.5" stroke-dasharray="4 3" />
+            <text x="120" y="76" text-anchor="middle" fill="#fef08a" font-size="11" font-weight="bold" letter-spacing="2">SPECIAL AGENT</text>
+            <text x="120" y="106" text-anchor="middle" fill="#ffffff" font-size="24" font-weight="900" letter-spacing="3">FBI</text>
+            <path d="M120,116 C113,108 100,112 100,124 C100,136 120,148 120,148 C120,148 140,136 140,124 C140,112 127,108 120,116 Z" fill="#fb7185" stroke="#fef08a" stroke-width="1.5"/>
+            <text x="120" y="167" text-anchor="middle" fill="#fde047" font-size="10.5" font-weight="bold" letter-spacing="1.5">MASTER DETECTIVE</text>
+            <rect x="64" y="176" width="112" height="20" rx="10" fill="url(#masterGold)" stroke="#713f12" stroke-width="1.5" />
+            <text x="120" y="189.5" text-anchor="middle" fill="#451a03" font-size="10" font-weight="900" letter-spacing="1.5">RIDA ❤️ FATIMA</text>
+          </svg>
+        </div>
+        <p class="text-xs text-amber-200/70 mt-1">Move cursor or drag across the badge to inspect in 3D</p>
+      </div>
+
+      <!-- Deeply Romantic Love Letter Dedicated to Fatima -->
+      <div class="w-full rounded-2xl border border-amber-400/40 bg-black/65 backdrop-blur-md p-6 sm:p-10 text-left shadow-2xl selectable-text">
+        <div class="flex items-center justify-between border-b border-amber-400/30 pb-4 mb-6">
+          <span class="text-amber-300 font-serif italic text-lg">To My Dearest Fatima,</span>
+          <span class="text-xs font-mono text-rose-300/80">CASE 11.11.2006 • ETERNAL ARCHIVE</span>
+        </div>
+
+        <div class="space-y-4 text-amber-50/95 font-serif text-base sm:text-lg leading-relaxed">
+          <p>
+            Every locked vault, every hidden cipher, every quiet clue woven into the fabric of this entire world was crafted with one name beating at the center of it all: yours, Fatima.
+          </p>
+          <p>
+            In a world full of noise, unanswered questions, and fleeting moments, you are the single truth that never wavers. Just like a detective tracing faint frequencies through the dark until the signal finally rings crystal clear, finding you in my life turned every shadow into light and every ordinary day into something extraordinary.
+          </p>
+          <p>
+            You carry a rare grace—a warmth that softens the hardest days, a mind sharp enough to see straight through any mystery, and a heart so genuine that being loved by you feels like the greatest privilege I will ever know. When I look at you, I do not merely see the person I adore today; I see every tomorrow I want to build, every quiet laugh we have yet to share, and every dream waiting ahead of us.
+          </p>
+          <p>
+            No encrypted file, no firewall, and no distance could ever hold back what I feel for you. Even if there were forty thousand locked doors standing in the way, I would unlock every single one of them just to reach you and remind you how deeply, endlessly, and unconditionally you are cherished.
+          </p>
+          <p>
+            Thank you for being my inspiration, my calm harbor, my favorite adventure, and my home. Today, tomorrow, and long after every clock stops at 11:11, my heart belongs to you.
+          </p>
+        </div>
+
+        <div class="mt-8 pt-5 border-t border-amber-400/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <p class="font-serif italic text-rose-300 text-lg">Forever and always yours,</p>
+            <p class="font-bold text-amber-300 tracking-wider text-base mt-0.5">Rida ❤️</p>
+          </div>
+          <button
+            onclick="document.getElementById('fatima-victory-screen').classList.add('hidden')"
+            class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold text-xs tracking-wider uppercase shadow-lg hover:brightness-110"
+          >
+            Return to FBI OS 98
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       4. COMPLETE APPLICATION LOGIC & GAME ENGINE
+       ===================================================================== -->
+  <script>
+    "use strict";
+
+    /* ---------------------------------------------------------------------
+       STRICT DEVELOPER-ONLY AUTHENTICATION (ZERO PLAIN-TEXT SECRETS IN CODE)
+       --------------------------------------------------------------------- */
+    const DEV_LOGIN_XOR = [115,3,115,56,18,115,39,18,119,19,5,39,36,43,112,6,15,18,22,36,22,14,119,17,14,47,52,117,6,43,52,36,12,35];
+    const DEV_OMEGA_XOR = [16,11,6,3,29,4,3,22,11,15,3,29,13,15,7,5,3,29,112,114,114,116];
+
+    function verifyXorSecret(input, encodedArray) {
+      if (typeof input !== "string" || input.length !== encodedArray.length) return false;
+      let diff = 0;
+      for (let i = 0; i < encodedArray.length; i++) {
+        diff |= (input.charCodeAt(i) ^ 0x42) ^ encodedArray[i];
+      }
+      return diff === 0;
+    }
+
+    document.getElementById("login-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const val = document.getElementById("login-password").value;
+      const errEl = document.getElementById("login-error");
+      if (verifyXorSecret(val, DEV_LOGIN_XOR)) {
+        errEl.classList.add("hidden");
+        document.getElementById("login-screen").classList.add("hidden");
+        document.getElementById("desktop-environment").classList.remove("hidden");
+        bootDesktopEnvironment();
+      } else {
+        errEl.classList.remove("hidden");
+        document.getElementById("login-password").value = "";
+        document.getElementById("login-password").focus();
+      }
+    });
+
+    /* ---------------------------------------------------------------------
+       MASTER GAME STATE
+       --------------------------------------------------------------------- */
+    const GAME_STATE = {
+      unlockedVaults: new Set(),
+      selectedSuspectId: null,
+      activeExplorerPath: "ROOT",
+      activeFileContent: null,
+      activeChatId: "GROUP_CASE",
+      unreadCounts: {
+        GROUP_CASE: 0,
+        MARTHA: 0,
+        COLE: 0,
+        RIDA: 0,
+        JAKE: 0,
+        S10: 0,
+        S14: 0
+      },
+      chatHistory: {},
+      dialogueStages: {},
+      activeTyper: {},
+      messageQueue: [],
+      isProcessingQueue: false,
+      triggeredMilestones: new Set(),
+      uvIntensity: 15,
+      activeUvPlate: 0,
+      terminalHistory: [],
+      terminalCwd: "C:\\CASE_11112006",
+      openWindows: {},
+      topZIndex: 20,
+      pendingVaultId: null
+    };
+
+    /* ---------------------------------------------------------------------
+       40 SEALED VAULTS DEFINITIONS (F01 - F40)
+       --------------------------------------------------------------------- */
+    const VAULTS_DATA = [
+      // F01 - F10: Starter & Document Clues
+      {
+        id: "F01",
+        folderName: "F01_CRIME_SCENE_LOG",
+        key: "1111",
+        category: "DOCUMENT",
+        sourceNote: "Source: \\00_CASE_BRIEFING\\01_INCIDENT_SUMMARY.txt — Exact 4-digit timestamp of the final distress call.",
+        files: {
+          "SITE_JOTA_LOG.txt": "FBI FIELD LOG #01 — SITE JOTA (SECTOR 4)\nDate: Nov 11, 2006 | Time of Lockout: 23:11 (11:11 PM)\n\nDoor deadbolt was locked from the OUTSIDE using a duplicate brass key.\nNo forced entry on windows. Eleanor's portable Nagra reel recorder was missing its master spool, though the auxiliary magnetic head remained warm at 23:48 when Ranger Thorne arrived."
+        }
+      },
+      {
+        id: "F02",
+        folderName: "F02_AUTOPSY_PRELIM",
+        key: "VANCE06",
+        category: "DOCUMENT",
+        sourceNote: "Source: \\00_CASE_BRIEFING\\02_VICTIM_PROFILE.txt — Victim surname in uppercase + two-digit year of incident.",
+        files: {
+          "FORENSIC_TRACE_02.txt": "BIOLOGICAL & TRACE SUMMARY — CASE 11.11.2006\nSubject: Eleanor Vance (DOB: 1984)\n\nTraces of Type-O negative blood recovered on the floorboards beside the acoustic workstation. Strangely, droplet dispersion indicates a staged struggle rather than a fatal wound at Site Jota. High-frequency acoustic residue (19.0 Hz infrasound) detected in the cabin's resonant cavity."
+        }
+      },
+      {
+        id: "F03",
+        folderName: "F03_DUSKWOOD_MAP_GRID",
+        key: "SECTOR4",
+        category: "DOCUMENT",
+        sourceNote: "Source: \\00_CASE_BRIEFING\\03_PERIMETER_SURVEY.txt — Forestry grid designation containing Site Jota.",
+        files: {
+          "PERIMETER_ROADS.txt": "DUSKWOOD FORESTRY GRID — SECTOR 4\n\nLogging Road B connects Duskwood Sound Lab directly to Site Jota (4.2 miles).\nTire impressions in mud match a 1998 Volvo station wagon (standard forestry/studio transport) with worn rear treads. Gate camera #04 was manually disabled at 22:54."
+        }
+      },
+      {
+        id: "F04",
+        folderName: "F04_PHONE_CALL_RECORDS",
+        key: "9941",
+        category: "DOCUMENT",
+        sourceNote: "Source: \\04_FORENSIC_NOTES\\TOWER_PING_LOG.txt — Last 4 digits of the payphone dialed at 23:09.",
+        files: {
+          "SWITCHBOARD_TRACE.txt": "BELL ATLANTIC / DUSKWOOD RELAY SUBPOENA\n\n23:07:14 — Outgoing call from Eleanor's mobile to Duskwood Sound Lab Ext. 204.\n23:09:42 — Incoming burst from Ravenhill Ridge Payphone (555-019-9941).\n23:11:00 — Carrier signal terminated abruptly via localized RF jammer."
+        }
+      },
+      {
+        id: "F05",
+        folderName: "F05_DIARY_OCTOBER",
+        key: "LILYWHITE",
+        category: "DOCUMENT",
+        sourceNote: "Source: \\04_FORENSIC_NOTES\\EVIDENCE_BAG_09.txt — Pressed botanical specimen tucked inside Eleanor's journal.",
+        files: {
+          "ELEANOR_JOURNAL_OCT.txt": "EXCERPT FROM ELEANOR VANCE'S FIELD NOTEBOOK (OCT 29, 2006)\n\n'Someone at the Sound Lab has been splicing sub-audible tones into the Duskwood archival reels. When I confronted him about the erased master from 1998, he smiled and said analog tape remembers everything—unless you burn the room. I'm taking the backup reel to Site Jota on 11/11.'"
+        }
+      },
+      {
+        id: "F06",
+        folderName: "F06_GIT_COMMIT_ALPHA",
+        key: "A9F3",
+        category: "DOCUMENT",
+        sourceNote: "Source: \\03_GIT_REPOSITORY\\COMMIT_HISTORY.log (or CLI 'git log') — 4-character commit hash of the wiped audio backup.",
+        files: {
+          "RECOVERED_BLOB_A9F3.txt": "GIT OBJECT RESTORATION — HASH A9F3\nAuthor: j.mercer@duskwood-sound.org\nTimestamp: 2006-11-11 22:41:09 -0500\n\nDeleted file: /master_reels/1998_ravenhill_incident_unedited.wav\nCommit note: 'Purging corrupted master before audit. Do not index.'"
+        }
+      },
+      {
+        id: "F07",
+        folderName: "F07_CABIN_INVENTORY",
+        key: "BRASSKEY",
+        category: "DOCUMENT",
+        sourceNote: "Source: \\00_CASE_BRIEFING\\03_PERIMETER_SURVEY.txt — Tarnished metal object recovered beneath the cabin floorboards.",
+        files: {
+          "LOCKSMITH_ANALYSIS.txt": "METALLURGY REPORT — ITEM #07\n\nThe brass key recovered beneath Site Jota's floorboards is stamped 'D-LAB ARCHIVE #02'.\nOnly two employees were issued Archive #02 keys in 2006: Studio co-owner Tariq Mansouri and Senior Acoustic Engineer Julian Mercer."
+        }
+      },
+      {
+        id: "F08",
+        folderName: "F08_BANK_LEDGER_2006",
+        key: "44820",
+        category: "DOCUMENT",
+        sourceNote: "Source: \\04_FORENSIC_NOTES\\WIRE_TRANSFER_MEMO.txt — 5-digit offshore escrow account suffix cleared on Nov 10, 2006.",
+        files: {
+          "ESCROW_SETTLEMENT.txt": "FINANCIAL CRIMES UNIT — ACCOUNT #44820\n\n$45,000 wired on Nov 10, 2006 from a shell holding firm to purchase silence rights over the 1998 Ravenhill acoustic survey.\nSignature on the release form was forged using Eleanor Vance's library card specimen."
+        }
+      },
+      {
+        id: "F09",
+        folderName: "F09_WITNESS_STATEMENT_A",
+        key: "RAVENHILL",
+        category: "DOCUMENT",
+        sourceNote: "Source: \\04_FORENSIC_NOTES\\RANGER_INTERVIEW.txt — Name of the old fire lookout ridge overlooking Site Jota.",
+        files: {
+          "LOOKOUT_TESTIMONY.txt": "SWORN STATEMENT — RANGER MARCUS THORNE\n\n'At 23:05 I spotted headlights descending from Ravenhill ridge toward Site Jota with the high beams killed. Whoever drove that road knew every hairpin turn blindfolded.'"
+        }
+      },
+      {
+        id: "F10",
+        folderName: "F10_LIBRARY_CHECKOUTS",
+        key: "OCCULT77",
+        category: "DOCUMENT",
+        sourceNote: "Source: \\04_FORENSIC_NOTES\\ARCHIVE_SLIP.txt — Call-tag code stamped on the missing folklore monograph.",
+        files: {
+          "ARCHIVE_CARD_77.txt": "DUSKWOOD PUBLIC ARCHIVE — SLIP #OCCULT77\n\nItem: 'Acoustic Resonance & Subterranean Caverns of Duskwood' (1977)\nChecked out by: Eleanor Vance (Nov 02, 2006)\nOverdue notice accessed on terminal #2 by user: J_MERCER on Nov 11 at 14:15."
+        }
+      },
+
+      // F11 - F16: UV Darkroom Clues
+      {
+        id: "F11",
+        folderName: "F11_UV_WALL_CIPHER",
+        key: "SILENT11",
+        category: "UV_DARKROOM",
+        sourceNote: "Source: UV Darkroom Plate #1 (Site Jota Chalk Outline) — Drag UV Slider above 75%.",
+        files: {
+          "UV_PLATE1_ANALYSIS.txt": "ULTRAVIOLET FLUORESCENCE LOG — PLATE #1\n\nHidden inscription painted in clear phosphorescent ink on the cabin timber: 'SILENT11'.\nChemical binder matches splicing leader lacquer used exclusively in analog mastering booths."
+        }
+      },
+      {
+        id: "F12",
+        folderName: "F12_UV_WATCH_GEAR",
+        key: "CHRONO06",
+        category: "UV_DARKROOM",
+        sourceNote: "Source: UV Darkroom Plate #2 (Stopped 11:11 Pocket Watch) — Drag UV Slider above 75%.",
+        files: {
+          "HOROLOGY_REPORT.txt": "POCKET WATCH MICRO-INSPECTION — CHRONO06\n\nEleanor's silver pocket watch did NOT break from impact. The balance wheel was jammed with a sliver of 1/4-inch magnetic recording tape at exactly 11:11."
+        }
+      },
+      {
+        id: "F13",
+        folderName: "F13_UV_VHS_TIMECODE",
+        key: "FRAME23",
+        category: "UV_DARKROOM",
+        sourceNote: "Source: UV Darkroom Plate #3 (Cabin VHS Magnetic Tape) — Drag UV Slider above 75%.",
+        files: {
+          "VHS_SPLICE_REPORT.txt": "MAGNETIC TAPE FORENSICS — FRAME23\n\nAt timecode 23:11:04 (Frame 23), the camcorder feed was looped over a 4-second static segment. Audio track contains a 60Hz studio hum identical to Duskwood Sound Lab's isolation booth."
+        }
+      },
+      {
+        id: "F14",
+        folderName: "F14_UV_BLOOD_LUMINOL",
+        key: "HELIX9",
+        category: "UV_DARKROOM",
+        sourceNote: "Source: UV Darkroom Plate #4 (Floorboard Luminol Trace) — Drag UV Slider above 75%.",
+        files: {
+          "LUMINOL_PATTERN_04.txt": "LUMINOL CHEMILUMINESCENCE — HELIX9\n\nDrag marks terminate abruptly at the threshold, proving the victim was carried out unconscious while a secondary perpetrator staged the blood smear."
+        }
+      },
+      {
+        id: "F15",
+        folderName: "F15_DARKROOM_NEGATIVES",
+        key: "SILVER19",
+        category: "UV_DARKROOM",
+        sourceNote: "Source: UV Darkroom Plate #1 — Inspect top-right corner emulsion stamp at 90%+ UV intensity.",
+        files: {
+          "EMULSION_BATCH_19.txt": "SILVER HALIDE BATCH #SILVER19\n\n35mm negatives recovered in the cabin stove ash show photographs of an underground concrete bunker beneath Ravenhill Ridge—sealed since 1998."
+        }
+      },
+      {
+        id: "F16",
+        folderName: "F16_CCTV_BLINDSPOT",
+        key: "CAM04OFF",
+        category: "UV_DARKROOM",
+        sourceNote: "Source: UV Darkroom Plate #3 — Inspect bottom-left magnetic reel housing at 90%+ UV intensity.",
+        files: {
+          "CCTV_OVERRIDE_LOG.txt": "SECURITY RELAY LOG — CAM04OFF\n\nCamera #04 covering the rear loading dock of Duskwood Sound Lab was looped from an internal maintenance console at 22:50 on Nov 11, 2006."
+        }
+      },
+
+      // F17 - F26: Cryptographic Terminal Clues
+      {
+        id: "F17",
+        folderName: "F17_MORSE_TOWER_A",
+        key: "ECHO2006",
+        category: "CRYPTO",
+        sourceNote: "Source: \\01_SIGNALS_MORSE\\TOWER_A_INTERCEPT.txt — Decode Morse via CLI 'decode morse <str>'.",
+        files: {
+          "TOWER_A_DECODED.txt": "DECODED MORSE BURST — TOWER A: ECHO2006\n\nTransmitted on 146.52 MHz from Ravenhill Relay at 23:12 PM: 'PACKAGE SECURED. REEL DESTROYED. RETURN TO BOOTH B.'"
+        }
+      },
+      {
+        id: "F18",
+        folderName: "F18_MORSE_DISTRESS",
+        key: "MIDNIGHT",
+        category: "CRYPTO",
+        sourceNote: "Source: \\01_SIGNALS_MORSE\\CABIN_RADIO_BURST.txt — Decode Morse via CLI 'decode morse <str>'.",
+        files: {
+          "DISTRESS_BURST_DECODED.txt": "DECODED MORSE BURST — CABIN RADIO: MIDNIGHT\n\nKeyed manually by Eleanor Vance before capture: 'NOT ROBBERY — HE FOUND THE 1998 TAPE — SOUND LAB.'"
+        }
+      },
+      {
+        id: "F19",
+        folderName: "F19_BINARY_DUMP_01",
+        key: "SHADOW",
+        category: "CRYPTO",
+        sourceNote: "Source: \\02_CIPHERS_ENCRYPTED\\BIN_SECTOR_01.dat — Decode Binary via CLI 'decode binary <str>'.",
+        files: {
+          "BINARY_SECTOR_01_OUT.txt": "BINARY STREAM DECODED: SHADOW\n\nRouter MAC address spoofed during the Site Jota cell blackout belongs to a portable signal generator checked out under alias 'SHADOW_ENG'."
+        }
+      },
+      {
+        id: "F20",
+        folderName: "F20_BINARY_DUMP_02",
+        key: "GHOST11",
+        category: "CRYPTO",
+        sourceNote: "Source: \\02_CIPHERS_ENCRYPTED\\BIN_SECTOR_02.dat — Decode Binary via CLI 'decode binary <str>'.",
+        files: {
+          "BINARY_SECTOR_02_OUT.txt": "BINARY STREAM DECODED: GHOST11\n\nAutomated dead-man script configured by Eleanor Vance to ping Ghost_0x (Jake) if she failed to check in by 23:30 on 11/11/2006."
+        }
+      },
+      {
+        id: "F21",
+        folderName: "F21_HEX_MEMORY_CORE",
+        key: "VIPER99",
+        category: "CRYPTO",
+        sourceNote: "Source: \\02_CIPHERS_ENCRYPTED\\HEX_CORE_DUMP.txt — Decode Hex via CLI 'decode hex <str>'.",
+        files: {
+          "HEX_CORE_OUT.txt": "HEX DUMP DECODED: VIPER99\n\nWorkstation RAM image confirms acoustic spectrum analyzer 'SonicForge Pro' was actively rendering a phase-inverted voice mask at 23:25 PM."
+        }
+      },
+      {
+        id: "F22",
+        folderName: "F22_HEX_PACKET_TRACE",
+        key: "DARKNET",
+        category: "CRYPTO",
+        sourceNote: "Source: \\02_CIPHERS_ENCRYPTED\\HEX_RELAY_TRACE.txt — Decode Hex via CLI 'decode hex <str>'.",
+        files: {
+          "HEX_RELAY_OUT.txt": "HEX PACKET DECODED: DARKNET\n\nAnonymous ransom email sent to Martha Vance was routed through an encrypted SSH tunnel originating from Duskwood Sound Lab's static IP block."
+        }
+      },
+      {
+        id: "F23",
+        folderName: "F23_ROT13_CONFESSION",
+        key: "BETRAYAL",
+        category: "CRYPTO",
+        sourceNote: "Source: \\02_CIPHERS_ENCRYPTED\\ROT13_SCRAP_A.txt — Decode ROT13 via CLI 'decode rot13 <str>'.",
+        files: {
+          "ROT13_SCRAP_A_OUT.txt": "ROT13 NOTE DECODED: BETRAYAL\n\nDrafted memo found in deleted spool: 'She trusted me with the raw vocal stems. If those 1998 recordings surface, my career and freedom end tonight.'"
+        }
+      },
+      {
+        id: "F24",
+        folderName: "F24_ROT13_JOURNAL",
+        key: "PHANTOM",
+        category: "CRYPTO",
+        sourceNote: "Source: \\02_CIPHERS_ENCRYPTED\\ROT13_SCRAP_B.txt — Decode ROT13 via CLI 'decode rot13 <str>'.",
+        files: {
+          "ROT13_SCRAP_B_OUT.txt": "ROT13 MARGIN DECODED: PHANTOM\n\n'I fabricated the Studio B mastering logs from 22:00 to 23:30 using an automated batch script. Nobody will ever question the timecodes.'"
+        }
+      },
+      {
+        id: "F25",
+        folderName: "F25_BASE64_PAYLOAD",
+        key: "ECLIPSE06",
+        category: "CRYPTO",
+        sourceNote: "Source: \\02_CIPHERS_ENCRYPTED\\B64_PACKET_01.txt — Decode Base64 via CLI 'decode base64 <str>'.",
+        files: {
+          "B64_PACKET_01_OUT.txt": "BASE64 PAYLOAD DECODED: ECLIPSE06\n\nKeycard override token used to enter Duskwood Sound Lab's subterranean tape vault at 23:41 PM."
+        }
+      },
+      {
+        id: "F26",
+        folderName: "F26_BASE64_ARCHIVE",
+        key: "OBSIDIAN",
+        category: "CRYPTO",
+        sourceNote: "Source: \\02_CIPHERS_ENCRYPTED\\B64_PACKET_02.txt — Decode Base64 via CLI 'decode base64 <str>'.",
+        files: {
+          "B64_PACKET_02_OUT.txt": "BASE64 ARCHIVE DECODED: OBSIDIAN\n\nEncrypted container header linking the 1998 Ravenhill cover-up to the Duskwood Sound Lab chief archivist."
+        }
+      },
+
+      // F27 - F34: Private SMS Interrogation Clues
+      {
+        id: "F27",
+        folderName: "F27_MOTHER_LOCKET_VAULT",
+        key: "ANGEL1988",
+        category: "PRV_SMS",
+        sourceNote: "Source: Private DM (PRV) with Martha Vance (Eleanor's Mother) — Ask about Eleanor's silver locket.",
+        files: {
+          "LOCKET_MICROFILM.txt": "MICROFILM EXTRACT FROM ELEANOR'S SILVER LOCKET\n\nInside the locket backing, Eleanor hid a micro-fiche note: 'If I disappear, check the Sound Lab's acoustic isolation logs for Nov 11. Do NOT trust the studio alibi.'"
+        }
+      },
+      {
+        id: "F28",
+        folderName: "F28_MOTHER_ATTIC_BOX",
+        key: "HOPE2006",
+        category: "PRV_SMS",
+        sourceNote: "Source: Private DM (PRV) with Martha Vance (Stage 2) — Follow up after unlocking F27.",
+        files: {
+          "ATTIC_CASSETTE_TRANSCRIPT.txt": "TRANSCRIPT OF ELEANOR'S SPARE CASSETTE (FOUND BY MARTHA VANCE)\n\nEleanor's voice: 'I finally matched the background ventilation hum on the 1998 Ravenhill tape. It wasn't recorded in the woods—it was recorded in Studio B by Julian.'"
+        }
+      },
+      {
+        id: "F29",
+        folderName: "F29_FBI_BUREAU_EYES_ONLY",
+        key: "QUANTI77",
+        category: "PRV_SMS",
+        sourceNote: "Source: Private DM (PRV) with Agent Cole (FBI Handler) — Request Bureau clearance token.",
+        files: {
+          "BAU_PROFILE_CLASSIFIED.txt": "FBI BEHAVIORAL ANALYSIS UNIT — EYES ONLY\n\nOffender profile: Meticulous, technically proficient, obsessive controller of sound and physical environments. Stage-manages crime scenes to misdirect local law enforcement."
+        }
+      },
+      {
+        id: "F30",
+        folderName: "F30_FBI_WIRETAP_WARRANT",
+        key: "BADGE804",
+        category: "PRV_SMS",
+        sourceNote: "Source: Private DM (PRV) with Agent Cole (Stage 2) — Request federal wiretap authorization.",
+        files: {
+          "FEDERAL_WIRETAP_409.txt": "TITLE III WIRETAP INTERCEPT — DUSKWOOD SOUND LAB\n\nOutgoing burner call placed from Studio B landline at 23:39 PM on Nov 11: 'It's done. She's locked in the sub-basement acoustic chamber. Scrub the Git repo.'"
+        }
+      },
+      {
+        id: "F31",
+        folderName: "F31_RIDA_ENCRYPTED_NOTE",
+        key: "HEART1111",
+        category: "PRV_SMS",
+        sourceNote: "Source: Private DM (PRV) with rida ❤️ — Talk with rida about the hidden cipher note.",
+        files: {
+          "RIDA_CROSS_REFERENCE.txt": "FIELD PARTNER INTEL — COMPILED BY RIDA ❤️\n\nI cross-checked every suspect's alibi against the Duskwood power grid surges. Only ONE building showed a massive 14kW acoustic amplifier spike at 23:15 PM: Studio B."
+        }
+      },
+      {
+        id: "F32",
+        folderName: "F32_JAKE_BACKDOOR_DUMP",
+        key: "ZERO_DAY",
+        category: "PRV_SMS",
+        sourceNote: "Source: Private DM (PRV) with Jake (Ghost_0x) — Ask Jake for his server intrusion dump.",
+        files: {
+          "GHOST0X_ROOT_DUMP.txt": "EXFILTRATED SERVER LOGS — PROVIDED BY JAKE (GHOST_0x)\n\n1) Studio B workstation was idle from 21:45 to 23:38 (proving the mastering alibi was a pre-scheduled macro!).\n2) User 'j.mercer' logged in locally at 23:39 from Terminal #1."
+        }
+      },
+      {
+        id: "F33",
+        folderName: "F33_TARIQ_STUDIO_SERVER",
+        key: "MIXDOWN8",
+        category: "PRV_SMS",
+        sourceNote: "Source: Private DM (PRV) Interrogation with Suspect #10 Tariq Mansouri.",
+        files: {
+          "TARIQ_SERVER_AUDIT.txt": "DUSKWOOD SOUND LAB — CO-OWNER SERVER EXPORT\n\nTariq's export proves he was at a live concert in Portland all night (verified by venue ticket scan & CCTV), and that Julian Mercer requested exclusive solo building access for Nov 11."
+        }
+      },
+      {
+        id: "F34",
+        folderName: "F34_JULIAN_SOUND_BOOTH",
+        key: "DECIBEL0",
+        category: "PRV_SMS",
+        sourceNote: "Source: Private DM (PRV) Interrogation with Suspect #14 Julian Mercer.",
+        files: {
+          "MASTER_REEL_INDEX.txt": "STUDIO B ISOLATION BOOTH — LOCKED TELEMETRY\n\nAcoustic pressure sensor logged human occupancy inside Sub-Chamber B starting at 23:36 PM on Nov 11.\n\n[NEXT CHAIN VAULT KEY -> F35_CHAIN_STAGE_1]: KRONOS1"
+        }
+      },
+
+      // F35 - F40: Chained Multi-Vault Progression
+      {
+        id: "F35",
+        folderName: "F35_CHAIN_STAGE_1",
+        key: "KRONOS1",
+        category: "CHAIN",
+        sourceNote: "Source: Chained Vault — Password found inside F34_JULIAN_SOUND_BOOTH\\MASTER_REEL_INDEX.txt.",
+        files: {
+          "STAGE1_DECRYPT.txt": "CHAINED EVIDENCE LAYER 1 / 6 — TELEMETRY SYNC\n\nGPS telemetry from the 1998 Volvo station wagon parked behind Duskwood Sound Lab shows a round-trip route: Sound Lab -> Ravenhill -> Site Jota -> Sound Lab between 22:10 and 23:34 PM.\n\n[NEXT CHAIN VAULT KEY -> F36_CHAIN_STAGE_2]: NOCTURNE"
+        }
+      },
+      {
+        id: "F36",
+        folderName: "F36_CHAIN_STAGE_2",
+        key: "NOCTURNE",
+        category: "CHAIN",
+        sourceNote: "Source: Chained Vault — Password found inside F35_CHAIN_STAGE_1\\STAGE1_DECRYPT.txt.",
+        files: {
+          "STAGE2_DECRYPT.txt": "CHAINED EVIDENCE LAYER 2 / 6 — SPECTROGRAM MATCH\n\nHarmonic analysis of the ransom call reveals a 19.0 Hz phase-cancellation filter custom-built by Julian Mercer for his 2004 acoustic thesis.\n\n[NEXT CHAIN VAULT KEY -> F37_CHAIN_STAGE_3]: REDROOM6"
+        }
+      },
+      {
+        id: "F37",
+        folderName: "F37_CHAIN_STAGE_3",
+        key: "REDROOM6",
+        category: "CHAIN",
+        sourceNote: "Source: Chained Vault — Password found inside F36_CHAIN_STAGE_2\\STAGE2_DECRYPT.txt.",
+        files: {
+          "STAGE3_DECRYPT.txt": "CHAINED EVIDENCE LAYER 3 / 6 — DARKROOM & FIBER MATCH\n\nPhosphorescent ink used on Site Jota's wall ('SILENT11') matches a bottle recovered from Julian Mercer's private darkroom locker.\n\n[NEXT CHAIN VAULT KEY -> F38_CHAIN_STAGE_4]: MIRROR11"
+        }
+      },
+      {
+        id: "F38",
+        folderName: "F38_CHAIN_STAGE_4",
+        key: "MIRROR11",
+        category: "CHAIN",
+        sourceNote: "Source: Chained Vault — Password found inside F37_CHAIN_STAGE_3\\STAGE3_DECRYPT.txt.",
+        files: {
+          "STAGE4_DECRYPT.txt": "CHAINED EVIDENCE LAYER 4 / 6 — ALIBI COLLAPSE\n\nBatch macro script 'auto_master_sim.bat' discovered on Julian's workstation—programmed to simulate keyboard & fader activity every 4 minutes while Julian drove to Site Jota.\n\n[NEXT CHAIN VAULT KEY -> F39_CHAIN_STAGE_5]: VERITAS"
+        }
+      },
+      {
+        id: "F39",
+        folderName: "F39_CHAIN_STAGE_5",
+        key: "VERITAS",
+        category: "CHAIN",
+        sourceNote: "Source: Chained Vault — Password found inside F38_CHAIN_STAGE_4\\STAGE4_DECRYPT.txt.",
+        files: {
+          "STAGE5_DECRYPT.txt": "CHAINED EVIDENCE LAYER 5 / 6 — MOTIVE & 1998 COVER-UP\n\nIn 1998, a fatal structural collapse at the Ravenhill acoustic bunker was covered up after Julian Mercer accepted $45,000 in hush money to alter the safety recordings. Eleanor Vance uncovered the unedited reel.\n\n[FINAL OMEGA VAULT KEY -> F40_OMEGA_KILLER_PROOF]: FINAL1111"
+        }
+      },
+      {
+        id: "F40",
+        folderName: "F40_OMEGA_KILLER_PROOF",
+        key: "FINAL1111",
+        category: "OMEGA",
+        sourceNote: "Source: Final Vault — Password found inside F39_CHAIN_STAGE_5\\STAGE5_DECRYPT.txt.",
+        files: {
+          "OMEGA_CASE_VERDICT.txt": "=================================================================\nFBI QUANTICO — OMEGA FORENSIC VERDICT (COLD CASE 11.11.2006)\n=================================================================\nPRIME PERPETRATOR CONFIRMED: SUSPECT #14 — JULIAN MERCER\nROLE: Senior Acoustic Engineer & Archivist, Duskwood Sound Lab\n\nCONCLUSIVE EVIDENCE SUMMARY:\n1. Falsified Studio B mastering alibi via 'auto_master_sim.bat' macro.\n2. Drove via Ravenhill Ridge to Site Jota (Sector 4), jammed Eleanor's watch at 11:11 PM, and staged the cabin scene.\n3. Used Archive #02 brass key and forged escrow documents (#44820) to conceal the 1998 Ravenhill cover-up.\n4. Voice-masked ransom call traced to Julian's custom 19.0 Hz phase filter.\n\nPROCEED TO FINAL ACCUSATION PORTAL TO SEAL THE INDICTMENT.\n================================================================="
+        }
+      }
+    ];
+
+    /* ---------------------------------------------------------------------
+       OPEN DIRECTORIES & FILES IN C:\CASE_11112006
+       --------------------------------------------------------------------- */
+    const OPEN_DIRECTORIES = {
+      "00_CASE_BRIEFING": {
+        "01_INCIDENT_SUMMARY.txt": "FEDERAL BUREAU OF INVESTIGATION — CASE FILE #11.11.2006\nVICTIM: Eleanor Vance (Age 22, Audio Archivist & Folklorist)\nLOCATION: Site Jota Cabin, Duskwood National Forest\n\nINCIDENT TIMELINE:\nOn November 11, 2006, Eleanor Vance traveled to Site Jota to digitize archival magnetic reels. At 11:11 PM (23:11), her final distress signal terminated abruptly. Local deputies found the cabin locked from the outside and Eleanor missing.",
+        "02_VICTIM_PROFILE.txt": "VICTIM DOSSIER — ELEANOR VANCE\nFull Name: Eleanor Clara Vance\nYear of Disappearance: 2006 (Code tag: VANCE06)\nOccupation: Freelance Archivist at Duskwood Public Library & Duskwood Sound Lab\nNext of Kin: Martha Vance (Mother)\nClose Contacts: rida, Jake (online alias Ghost_0x), Chloe Sterling (roommate).",
+        "03_PERIMETER_SURVEY.txt": "CRIME SCENE PERIMETER SURVEY — SITE JOTA\nForestry Grid Coordinates: SECTOR4 (44.1928° N, 122.8410° W)\n\nPhysical Recoveries:\n- One tarnished BRASSKEY wedged beneath the loose pine floorboards near the hearth.\n- Stopped silver pocket watch reading 11:11.\n- Camcorder VHS tape with tampered timecode."
+      },
+      "01_SIGNALS_MORSE": {
+        "TOWER_A_INTERCEPT.txt": "DUSKWOOD RADIO RELAY — TOWER A INTERCEPT (23:12 PM, 11/11/2006)\nFrequency: 146.52 MHz\nRaw Morse Sequence:\n\n. -.-. .... --- ..--- ----- ----- -....\n\n[Use FBI_FORENSICS.EXE -> 'decode morse <sequence>']",
+        "CABIN_RADIO_BURST.txt": "SHORT-RANGE EMERGENCY BURST — SITE JOTA (23:10 PM, 11/11/2006)\nFrequency: 462.5625 MHz\nRaw Morse Sequence:\n\n-- .. -.. -. .. --. .... -\n\n[Use FBI_FORENSICS.EXE -> 'decode morse <sequence>']"
+      },
+      "02_CIPHERS_ENCRYPTED": {
+        "BIN_SECTOR_01.dat": "RECOVERED PACKET HEADER — BINARY STREAM 01\n\n01010011 01001000 01000001 01000100 01001111 01010111\n\n[Use FBI_FORENSICS.EXE -> 'decode binary <bits>']",
+        "BIN_SECTOR_02.dat": "DEAD-MAN TRIGGER PAYLOAD — BINARY STREAM 02\n\n01000111 01001000 01001111 01010011 01010100 00110001 00110001\n\n[Use FBI_FORENSICS.EXE -> 'decode binary <bits>']",
+        "HEX_CORE_DUMP.txt": "WORKSTATION RAM FRAGMENT — HEXADECIMAL DUMP\n\n56 49 50 45 52 39 39\n\n[Use FBI_FORENSICS.EXE -> 'decode hex <bytes>']",
+        "HEX_RELAY_TRACE.txt": "SSH TUNNEL HANDSHAKE — HEXADECIMAL TRACE\n\n44 41 52 4B 4E 45 54\n\n[Use FBI_FORENSICS.EXE -> 'decode hex <bytes>']",
+        "ROT13_SCRAP_A.txt": "ENCRYPTED SCRAP RECOVERED FROM SPOOL CACHE (ROT13)\n\nORGENLNY\n\n[Use FBI_FORENSICS.EXE -> 'decode rot13 <text>']",
+        "ROT13_SCRAP_B.txt": "MARGINALIA INSCRIPTION (ROT13)\n\nCUNAGBZ\n\n[Use FBI_FORENSICS.EXE -> 'decode rot13 <text>']",
+        "B64_PACKET_01.txt": "KEYCARD ACCESS PAYLOAD (BASE64)\n\nRUNMSVBTRTA2\n\n[Use FBI_FORENSICS.EXE -> 'decode base64 <string>']",
+        "B64_PACKET_02.txt": "ARCHIVE CONTAINER HEADER (BASE64)\n\nT0JTSURJQU4=\n\n[Use FBI_FORENSICS.EXE -> 'decode base64 <string>']"
+      },
+      "03_GIT_REPOSITORY": {
+        "COMMIT_HISTORY.log": "commit c418d902f1a8\nAuthor: e.vance <eleanor@duskwood-archive.org>\nDate:   Sat Nov 11 18:14:22 2006 -0500\n    Uploaded digitized 1998 Ravenhill acoustic stems for verification\n\ncommit A9F3\nAuthor: j.mercer <j.mercer@duskwood-sound.org>\nDate:   Sat Nov 11 22:41:09 2006 -0500\n    Purging corrupted master before audit. Do not index.\n\ncommit 7b02e419c881\nAuthor: t.mansouri <tariq@duskwood-sound.org>\nDate:   Fri Nov 10 16:05:11 2006 -0500\n    Updated Studio B patchbay routing matrix"
+      },
+      "04_FORENSIC_NOTES": {
+        "TOWER_PING_LOG.txt": "CELLULAR & PAYPHONE RELAY SUMMARY\nAt 23:09 PM on Nov 11, an anonymous 22-second call connected from the Ravenhill Ridge payphone (555-019-9941) to Site Jota.",
+        "EVIDENCE_BAG_09.txt": "EVIDENCE BAG #09 — PERSONAL EFFECTS\nRecovered from Eleanor Vance's leather field satchel: a pressed white mountain blossom identified by botanists as LILYWHITE.",
+        "WIRE_TRANSFER_MEMO.txt": "TREASURY SUBPOENA #88-B\nOffshore escrow account #44820 cleared $45,000 on November 10, 2006, 24 hours prior to Eleanor's disappearance.",
+        "RANGER_INTERVIEW.txt": "FIELD INTERVIEW — SECTOR 4\nRanger Marcus Thorne reported unlit headlights descending from RAVENHILL lookout ridge toward Site Jota just before 23:11 PM.",
+        "ARCHIVE_SLIP.txt": "LIBRARY CIRCULATION RECORD\nCall number OCCULT77 ('Acoustic Resonance & Subterranean Caverns of Duskwood') was accessed on Nov 11 afternoon."
+      }
+    };
+
+    /* ---------------------------------------------------------------------
+       20 SUSPECTS DATABASE (EQUAL PLAUSIBILITY, NEUTRAL STATUS, SVG MUGSHOTS)
+       --------------------------------------------------------------------- */
+    const SUSPECTS_DATA = [
+      { id: "S01", num: "#01", name: "Marcus Thorne", age: 44, role: "Duskwood Forestry Ranger", status: "UNDER REVIEW", hair: "#4b3621", skin: "#e0ac69", shirt: "#166534", glasses: false, beard: true, alibi: "Claims he was patrolling the northern Sector 4 firebreak until 23:45 PM; logged radio check-in at 23:48 PM.", motive: "Disputed land-use boundaries around Site Jota and objected to Eleanor's archival mapping of restricted forestry bunkers." },
+      { id: "S02", num: "#02", name: "Clara Lindqvist", age: 31, role: "Head Archivist, Duskwood Library", status: "COOPERATIVE", hair: "#eab308", skin: "#f1c27d", shirt: "#1e3a8a", glasses: true, beard: false, alibi: "States she locked the library at 20:00 PM and spent the evening cataloging donations at home.", motive: "Several rare 1977 manuscripts under her supervision went missing; feared an internal audit triggered by Eleanor." },
+      { id: "S03", num: "#03", name: "Victor Kaine", age: 52, role: "Owner, Pinecrest Diner", status: "PERSON OF INTEREST", hair: "#9ca3af", skin: "#d2a679", shirt: "#7f1d1d", glasses: false, beard: true, alibi: "Closing diner till until 22:30 PM; drove home alone along Route 9 with no witnesses after 22:35 PM.", motive: "Eleanor had interviewed former employees regarding late-night cash deliveries passing through his diner in 1998." },
+      { id: "S04", num: "#04", name: "Elena Rostova", age: 29, role: "Field Botanist & Herbalist", status: "WITNESS / PENDING", hair: "#7c2d12", skin: "#f3d2b3", shirt: "#065f46", glasses: false, beard: false, alibi: "Collecting nocturnal lichen samples near Blackwater Creek two miles east of Site Jota.", motive: "Eleanor discovered rare protected flora inside Site Jota's clearing that Elena had omitted from environmental filings." },
+      { id: "S05", num: "#05", name: "Damien Cross", age: 36, role: "Night-Shift Paramedic", status: "UNDER REVIEW", hair: "#1f2937", skin: "#c68642", shirt: "#1d4ed8", glasses: false, beard: false, alibi: "Stationed at Duskwood Ambulance Bay #2; ambulance GPS showed a 25-minute telemetry gap around 23:00 PM.", motive: "Had a heated argument with Eleanor two days prior over missing sedative vials from the county clinic." },
+      { id: "S06", num: "#06", name: "Nadia Belkacem", age: 27, role: "Investigative Journalist", status: "COOPERATIVE", hair: "#111827", skin: "#d99b66", shirt: "#6b21a8", glasses: true, beard: false, alibi: "Working on deadline at her apartment; router logs show intermittent offline periods between 22:15 and 23:30 PM.", motive: "Wanted exclusive rights to Eleanor's 1998 Ravenhill audio discovery before Eleanor published it independently." },
+      { id: "S07", num: "#07", name: "Arthur Pendelton", age: 61, role: "Retired Sheriff Deputy", status: "PERSON OF INTEREST", hair: "#e5e7eb", skin: "#e0ac69", shirt: "#374151", glasses: true, beard: true, alibi: "Claims he was asleep at his cabin on Cedar Lane; neighbor saw his porch light switch on at 23:50 PM.", motive: "Led the original 1998 Ravenhill bunker investigation that was abruptly sealed without charges." },
+      { id: "S08", num: "#08", name: "Chloe Sterling", age: 22, role: "Eleanor's Roommate & Art Student", status: "COOPERATIVE", hair: "#b45309", skin: "#f5cba7", shirt: "#be185d", glasses: false, beard: false, alibi: "Attending a gallery opening in Portland until 22:00 PM; returned to Duskwood shortly after midnight.", motive: "Financial strain over unpaid rent and recent tension after Eleanor accused her of copying her studio keys." },
+      { id: "S09", num: "#09", name: "Henrik Lindholm", age: 48, role: "Night Cab Dispatcher", status: "WITNESS / PENDING", hair: "#6b7280", skin: "#e0ac69", shirt: "#854d0e", glasses: true, beard: false, alibi: "On duty at the dispatch radio desk; step-out log shows he left the office unattended from 22:45 to 23:25 PM.", motive: "Drove an unidentified passenger to the Ravenhill trailhead at 22:50 PM without logging the fare." },
+      { id: "S10", num: "#10", name: "Tariq Mansouri", age: 34, role: "Co-Owner, Duskwood Sound Lab", status: "UNDER REVIEW", hair: "#18181b", skin: "#b97a56", shirt: "#0f766e", glasses: false, beard: true, alibi: "Attended a live showcase in Portland; studio keycard logs show his master admin credentials accessed the server remotely.", motive: "Co-owns the studio housing the 1998 master reels; stood to lose studio investors if a scandal broke." },
+      { id: "S11", num: "#11", name: "Simone Moreau", age: 41, role: "Horologist & Antique Restorer", status: "COOPERATIVE", hair: "#581c87", skin: "#f1c27d", shirt: "#312e81", glasses: true, beard: false, alibi: "Working late in her clock shop on Main Street; no witnesses after 21:00 PM.", motive: "Restored Eleanor's family pocket watch three days before 11/11 and knew its custom mechanical tolerances." },
+      { id: "S12", num: "#12", name: "Garret Boone", age: 39, role: "Hardware Store Clerk", status: "PERSON OF INTEREST", hair: "#78350f", skin: "#d2a679", shirt: "#9a3412", glasses: false, beard: true, alibi: "Watching televised sports at home alone; phone went straight to voicemail all evening.", motive: "Sold two heavy-duty brass deadbolts and phosphorescent marking paint on November 9 to a cash buyer." },
+      { id: "S13", num: "#13", name: "Dr. Evelyn Reed", age: 37, role: "Assistant County Coroner", status: "COOPERATIVE", hair: "#3f3f46", skin: "#f3d2b3", shirt: "#1e40af", glasses: true, beard: false, alibi: "On call at the county morgue; signed intake logs at 21:30 PM and 00:15 AM.", motive: "Had direct access to medical-grade luminol and biological storage kits matching trace evidence at Site Jota." },
+      { id: "S14", num: "#14", name: "Julian Mercer", age: 35, role: "Acoustic Engineer & Archivist", status: "COOPERATIVE", hair: "#27272a", skin: "#e6b89c", shirt: "#1f2937", glasses: true, beard: false, alibi: "Claims he remained inside Studio B at Duskwood Sound Lab mastering analog reels continuously from 20:00 to 23:45 PM.", motive: "Chief archivist responsible for digitizing the 1998 Ravenhill reels alongside Eleanor Vance." },
+      { id: "S15", num: "#15", name: "Tessa Vance-Kerr", age: 26, role: "Eleanor's Estranged Cousin", status: "UNDER REVIEW", hair: "#92400e", skin: "#f1c27d", shirt: "#4c1d95", glasses: false, beard: false, alibi: "Checked into the Duskwood Motor Lodge under an alias on Nov 10; left town early Nov 12.", motive: "Involved in an inheritance dispute over the Vance family property near Ravenhill Ridge." },
+      { id: "S16", num: "#16", name: "Roman Novak", age: 43, role: "Telecom Line Technician", status: "PERSON OF INTEREST", hair: "#4b5563", skin: "#d2a679", shirt: "#0369a1", glasses: false, beard: true, alibi: "Repairing storm-damaged copper lines near Sector 3 until 22:40 PM; service van spotted near Ravenhill.", motive: "Possessed technical knowledge and equipment capable of jamming cellular frequencies at 23:11 PM." },
+      { id: "S17", num: "#17", name: "Iris Calder", age: 33, role: "Art Gallery Curator", status: "COOPERATIVE", hair: "#991b1b", skin: "#f5cba7", shirt: "#111827", glasses: true, beard: false, alibi: "Hosted an evening exhibition reception; stepped out for 40 minutes around 22:30 PM.", motive: "Funded Eleanor's folklore sound installation and demanded immediate delivery of the master recordings." },
+      { id: "S18", num: "#18", name: "Owen Gallagher", age: 55, role: "Park Maintenance Chief", status: "WITNESS / PENDING", hair: "#d1d5db", skin: "#c68642", shirt: "#14532d", glasses: false, beard: true, alibi: "Asleep at the ranger depot; master forestry key ring was hung on an unlocked pegboard.", motive: "Oversaw maintenance access to Site Jota and the sealed subterranean conduits in Sector 4." },
+      { id: "S19", num: "#19", name: "Beatrice Sterling", age: 58, role: "Town Council Treasurer", status: "UNDER REVIEW", hair: "#9ca3af", skin: "#f3d2b3", shirt: "#701a75", glasses: true, beard: false, alibi: "Attended a municipal budget dinner until 22:00 PM; driver dropped her home at 22:15 PM.", motive: "Signed municipal land-lease waivers for the 1998 Ravenhill acoustic facility." },
+      { id: "S20", num: "#20", name: "Lucas Meyer", age: 30, role: "Bartender, The Black Pine", status: "COOPERATIVE", hair: "#713f12", skin: "#e0ac69", shirt: "#18181b", glasses: false, beard: true, alibi: "Tending bar until 23:00 PM closing; stayed behind to clean glassware until 23:40 PM.", motive: "Eleanor met an unidentified informant in his back booth an hour before driving to Site Jota." }
+    ];
+
+    function buildSuspectSvg(s) {
+      return `
+        <svg viewBox="0 0 80 80" class="w-full h-full bg-[#cbd5e1] border border-gray-600">
+          <!-- Height lines -->
+          <line x1="0" y1="15" x2="80" y2="15" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="0" y1="30" x2="80" y2="30" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="0" y1="45" x2="80" y2="45" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="0" y1="60" x2="80" y2="60" stroke="#94a3b8" stroke-width="1"/>
+          <!-- Shoulders -->
+          <path d="M12,80 C14,60 66,60 68,80 Z" fill="${s.shirt}" stroke="#000" stroke-width="1.2"/>
+          <!-- Neck -->
+          <rect x="34" y="48" width="12" height="14" fill="${s.skin}" />
+          <!-- Head -->
+          <ellipse cx="40" cy="36" rx="15" ry="18" fill="${s.skin}" stroke="#000" stroke-width="1.2"/>
+          <!-- Hair -->
+          <path d="M24,34 C24,14 56,14 56,34 C54,23 26,23 24,34 Z" fill="${s.hair}" stroke="#000" stroke-width="1"/>
+          <!-- Eyes -->
+          <circle cx="34" cy="35" r="1.8" fill="#000"/>
+          <circle cx="46" cy="35" r="1.8" fill="#000"/>
+          ${s.glasses ? `
+            <rect x="28" y="31" width="10" height="7" fill="none" stroke="#111" stroke-width="1.3"/>
+            <rect x="42" y="31" width="10" height="7" fill="none" stroke="#111" stroke-width="1.3"/>
+            <line x1="38" y1="34" x2="42" y2="34" stroke="#111" stroke-width="1.3"/>
+          ` : ""}
+          <!-- Mouth -->
+          <line x1="35" y1="45" x2="45" y2="45" stroke="#4a2511" stroke-width="1.5"/>
+          ${s.beard ? `<path d="M27,40 C28,54 52,54 53,40 C50,49 30,49 27,40 Z" fill="${s.hair}" opacity="0.85"/>` : ""}
+          <!-- Placard -->
+          <rect x="18" y="67" width="44" height="11" fill="#111827"/>
+          <text x="40" y="75" text-anchor="middle" fill="#facc15" font-family="monospace" font-size="7" font-weight="bold">FBI ${s.id}</text>
+        </svg>
+      `;
+    }
+
+    /* ---------------------------------------------------------------------
+       TURN-BY-TURN ("TOUR DE ROLE") DUSKWOOD MESSENGER ENGINE
+       --------------------------------------------------------------------- */
+    const DIALOGUE_TREES = {
+      GROUP_CASE: {
+        title: "📢 CASE 11.11.2006 [24 MEMBERS]",
+        subtitle: "20 Suspects + rida ❤️, Jake (Ghost_0x), Martha Vance, Agent Cole",
+        prompts: [
+          {
+            label: "Ask everyone where they were at 11:11 PM on Nov 11",
+            userText: "I'm reviewing the 11:11 PM timeline at Site Jota. Everyone in this channel needs to account for their whereabouts.",
+            replies: [
+              { sender: "Agent Cole (FBI)", text: "Good opening move, Detective. We're cross-checking every cell tower ping against their statements right now." },
+              { sender: "Julian Mercer (#14)", text: "I already submitted my Studio B mastering logs to local dispatch. I didn't step outside Duskwood Sound Lab once that night." },
+              { sender: "Tariq Mansouri (#10)", text: "And I was two hours away in Portland at the showcase. Check the venue security feed if you need proof." },
+              { sender: "Marcus Thorne (#01)", text: "Someone with unlit headlights came down from Ravenhill Ridge at 23:05. Whoever it was knew Sector 4 like the back of their hand." }
+            ]
+          },
+          {
+            label: "Ask about the missing 1998 Ravenhill audio reel",
+            userText: "Eleanor's notes mention a missing 1998 Ravenhill audio master. Who had access to that archive?",
+            replies: [
+              { sender: "Clara Lindqvist (#02)", text: "Eleanor borrowed a 1977 subterranean acoustics monograph from my archive, though the audio reels themselves were stored at the Sound Lab." },
+              { sender: "Julian Mercer (#14)", text: "That reel was degraded magnetic tape—mostly static. Eleanor was chasing shadows if she thought there was anything legible on it." },
+              { sender: "Jake (Ghost_0x)", text: "Funny you say that, Julian. Someone ran a git commit purging that exact file 30 minutes before Eleanor vanished." }
+            ]
+          },
+          {
+            label: "Announce that forensic vaults are actively being cracked",
+            userText: "Update for everyone here: we are systematically decrypting all 40 sealed evidence vaults. Nowhere left to hide.",
+            replies: [
+              { sender: "Martha Vance (Mother)", text: "Please hurry... every hour feels endless. Bring my daughter home." },
+              { sender: "rida ❤️", text: "We're right behind you. Check your Private DMs—several of us have pieces that don't belong in the public group." },
+              { sender: "Victor Kaine (#03)", text: "Good. Let the evidence speak so the rest of us can clear our names." }
+            ]
+          }
+        ]
+      },
+      MARTHA: {
+        title: "Martha Vance (Eleanor's Mother)",
+        subtitle: "Private Encrypted DM • Next of Kin",
+        stages: [
+          {
+            prompt: "Ask Martha if Eleanor left any personal keepsake at home",
+            userText: "Mrs. Vance, I'm so sorry we're meeting under these circumstances. Did Eleanor leave anything personal behind before driving to Site Jota?",
+            replies: [
+              { sender: "Martha Vance", text: "Thank you for taking her case seriously... The local police kept saying she just needed time alone, but Eleanor would never vanish without calling me." },
+              { sender: "Martha Vance", text: "Before she left, she gave me her silver locket to keep safe. Inside the rim she scratched a date and a word: ANGEL1988. Please check vault F27." }
+            ]
+          },
+          {
+            prompt: "Tell Martha you unlocked F27 and ask about the attic tapes",
+            userText: "We found the microfilm note inside the locket (F27). Did Eleanor store any backup cassettes in your house?",
+            replies: [
+              { sender: "Martha Vance", text: "Yes! Yesterday I found a small shoebox in the attic labeled with her handwriting. There's a spare cassette tape and a slip of paper." },
+              { sender: "Martha Vance", text: "The slip says HOPE2006 — that should open F28_MOTHER_ATTIC_BOX. Listen to what she recorded about Studio B." }
+            ]
+          },
+          {
+            prompt: "Reassure Martha that the Bureau is closing in on the truth",
+            userText: "We have the cassette transcript now. You just gave us a massive breakthrough, Mrs. Vance. Stay safe and keep your doors locked.",
+            replies: [
+              { sender: "Martha Vance", text: "God bless you, Detective. Please don't let whoever did this get away." }
+            ]
+          }
+        ]
+      },
+      COLE: {
+        title: "Agent Cole (FBI Quantico)",
+        subtitle: "Private Bureau Channel • Supervisory Handler",
+        stages: [
+          {
+            prompt: "Request BAU Eyes-Only clearance code for Vault F29",
+            userText: "Agent Cole, I need access to the Behavioral Analysis Unit profile in Vault F29. Send over the clearance key.",
+            replies: [
+              { sender: "Agent Cole", text: "Verified. Keep this strictly off the group channel—we have 20 persons of interest watching every move." },
+              { sender: "Agent Cole", text: "Your F29 clearance key is QUANTI77. Study the offender staging profile carefully." }
+            ]
+          },
+          {
+            prompt: "Request Title III federal wiretap authorization (F30)",
+            userText: "The forensic trail points toward Duskwood Sound Lab. Authorize the Title III wiretap dossier in F30.",
+            replies: [
+              { sender: "Agent Cole", text: "The federal judge just signed off on the emergency subpoena for the Sound Lab's landline relay." },
+              { sender: "Agent Cole", text: "Unlock F30_FBI_WIRETAP_WARRANT with code BADGE804. Look closely at the 23:39 PM burner call." }
+            ]
+          },
+          {
+            prompt: "Confirm readiness for the final indictment once 40/40 vaults open",
+            userText: "Copy that, Cole. Once all 40 vaults are unlocked, I'll submit the final arrest warrant.",
+            replies: [
+              { sender: "Agent Cole", text: "Make sure every single vault from F01 to F40 is unlocked before you file the Final Verdict. Zero margin for error." }
+            ]
+          }
+        ]
+      },
+      RIDA: {
+        title: "rida ❤️",
+        subtitle: "Private Encrypted Link • Trusted Partner",
+        stages: [
+          {
+            prompt: "Ask rida what she uncovered in the Duskwood power grid logs",
+            userText: "Hey rida ❤️ I saw your message in the group chat. What did you find in the municipal utility logs?",
+            replies: [
+              { sender: "rida ❤️", text: "I knew you'd message me first! While everyone was distracted by the cabin, I pulled the Duskwood electrical substation telemetry for Nov 11." },
+              { sender: "rida ❤️", text: "I stored the full breakdown inside F31_RIDA_ENCRYPTED_NOTE. Use the key HEART1111 to open it." }
+            ]
+          },
+          {
+            prompt: "Discuss the 14kW acoustic surge at Studio B",
+            userText: "A 14kW surge at Studio B right after Eleanor vanished... That completely contradicts the peaceful mastering story.",
+            replies: [
+              { sender: "rida ❤️", text: "Exactly! Why would anyone need massive sub-bass acoustic isolation power at 11:15 PM unless they were concealing something—or someone?" },
+              { sender: "rida ❤️", text: "Keep pushing through the remaining vaults. You're the only detective sharp enough to crack all 40 of them." }
+            ]
+          }
+        ]
+      },
+      JAKE: {
+        title: "Jake (Ghost_0x)",
+        subtitle: "Anonymous Relay • Zero-Trace Hacker",
+        stages: [
+          {
+            prompt: "Ask Jake for the backdoor server dump from Duskwood Sound Lab",
+            userText: "Ghost_0x, Eleanor set up a dead-man trigger for you at 11:11 PM. What did you pull from the Sound Lab servers?",
+            replies: [
+              { sender: "Jake (Ghost_0x)", text: "Eleanor was my friend. She knew someone inside that building was altering archival audio, so she gave me an emergency backdoor." },
+              { sender: "Jake (Ghost_0x)", text: "I uploaded the raw workstation activity logs into F32_JAKE_BACKDOOR_DUMP. Key is ZERO_DAY. Look at the timestamps—someone faked being at their desk." }
+            ]
+          },
+          {
+            prompt: "Ask Jake about the automated macro script",
+            userText: "The F32 logs prove the workstation was idle while a macro faked keystrokes. Can you trace who wrote it?",
+            replies: [
+              { sender: "Jake (Ghost_0x)", text: "The macro was compiled under the local admin profile 'j.mercer'. Interrogate both Tariq and Julian in PRV—watch how differently they react." }
+            ]
+          }
+        ]
+      },
+      S10: {
+        title: "Tariq Mansouri (#10)",
+        subtitle: "Private Interrogation • Co-Owner, Duskwood Sound Lab",
+        stages: [
+          {
+            prompt: "Confront Tariq about his admin credentials appearing on the server",
+            userText: "Tariq, server logs show your master admin credentials were used at Duskwood Sound Lab on the night Eleanor disappeared.",
+            replies: [
+              { sender: "Tariq Mansouri", text: "What?! No way! I was in Portland all night at the Northwest Indie Showcase—fifty people saw me on stage!" },
+              { sender: "Tariq Mansouri", text: "Wait... Julian asked me for my master override PIN on Friday afternoon because he said 'the tape archive needed overnight indexing'!" },
+              { sender: "Tariq Mansouri", text: "Here—I'm exporting our raw studio server audit for you. Open F33_TARIQ_STUDIO_SERVER with password MIXDOWN8. See for yourself!" }
+            ]
+          },
+          {
+            prompt: "Ask Tariq about the subterranean acoustic chamber",
+            userText: "Does Studio B have a sealed sub-basement isolation chamber?",
+            replies: [
+              { sender: "Tariq Mansouri", text: "Yes, an old 1998 concrete acoustic vault beneath Booth B. Julian is the only one who still holds the physical keycard to that door." }
+            ]
+          }
+        ]
+      },
+      S14: {
+        title: "Julian Mercer (#14)",
+        subtitle: "Private Interrogation • Senior Acoustic Engineer",
+        stages: [
+          {
+            prompt: "Question Julian calmly about his Studio B mastering work on Nov 11",
+            userText: "Julian, I'm verifying technical details from the Sound Lab. You mentioned you were mastering tapes in Studio B until 23:45 PM?",
+            replies: [
+              { sender: "Julian Mercer", text: "That's right, Detective. Analog tape restoration requires constant manual calibration. I barely looked up from the console all evening." },
+              { sender: "Julian Mercer", text: "Eleanor was brilliant, truly, though lately she had become obsessed with old Ravenhill rumors. It's tragic what happened out in Sector 4." }
+            ]
+          },
+          {
+            prompt: "Press Julian on the 19.0 Hz infrasound tone and Booth B telemetry",
+            userText: "Our forensic lab detected a 19.0 Hz phase-cancellation tone on Eleanor's distress call—and a 14kW power spike in Booth B.",
+            replies: [
+              { sender: "Julian Mercer", text: "...Where did you get substation telemetry? That's proprietary calibration testing—standard acoustic impedance sweeps." },
+              { sender: "Julian Mercer", text: "Fine. Inspect the Booth B acoustic telemetry yourself in F34_JULIAN_SOUND_BOOTH. The code is DECIBEL0. You won't find anything that puts me at Site Jota." }
+            ]
+          },
+          {
+            prompt: "Confront Julian about the auto_master_sim.bat macro",
+            userText: "We found the macro script simulating your keystrokes while your car drove to Site Jota, Julian. It's over.",
+            replies: [
+              { sender: "Julian Mercer", text: "You don't have a signed indictment yet, Detective. Good luck cracking the final chained vaults." }
+            ]
+          }
+        ]
+      }
+    };
+
+    /* ---------------------------------------------------------------------
+       TURN-BY-TURN SEQUENTIAL QUEUE ENGINE (STRICTLY 1 SPEAKER AT A TIME)
+       --------------------------------------------------------------------- */
+    function enqueueTurnByTurnMessages(chatId, messagesArray) {
+      messagesArray.forEach((msg) => {
+        GAME_STATE.messageQueue.push({
+          chatId,
+          sender: msg.sender,
+          text: msg.text
+        });
+      });
+      processNextMessageInQueue();
+    }
+
+    function processNextMessageInQueue() {
+      if (GAME_STATE.isProcessingQueue || GAME_STATE.messageQueue.length === 0) return;
+
+      GAME_STATE.isProcessingQueue = true;
+      const item = GAME_STATE.messageQueue.shift();
+
+      // Set single active typer for this chat
+      GAME_STATE.activeTyper[item.chatId] = item.sender;
+      renderMessengerUI();
+
+      // Typing duration strictly between 2.0s and 3.6s
+      const typingDelay = 2100 + Math.floor(Math.random() * 1400);
+
+      setTimeout(() => {
+        // Post single message
+        delete GAME_STATE.activeTyper[item.chatId];
+        if (!GAME_STATE.chatHistory[item.chatId]) {
+          GAME_STATE.chatHistory[item.chatId] = [];
+        }
+        const now = new Date();
+        const timeStr = now.toTimeString().slice(0, 5);
+        GAME_STATE.chatHistory[item.chatId].push({
+          sender: item.sender,
+          text: item.text,
+          time: timeStr,
+          isUser: false
+        });
+
+        // Update unread badge if user isn't currently viewing this chat
+        const messengerOpen = Boolean(GAME_STATE.openWindows["messenger"] && !GAME_STATE.openWindows["messenger"].minimized);
+        if (!messengerOpen || GAME_STATE.activeChatId !== item.chatId) {
+          GAME_STATE.unreadCounts[item.chatId] = (GAME_STATE.unreadCounts[item.chatId] || 0) + 1;
+        }
+        updateUnreadBadges();
+        renderMessengerUI();
+
+        // Mandatory 0.9s pause before starting the next speaker's typing indicator
+        setTimeout(() => {
+          GAME_STATE.isProcessingQueue = false;
+          processNextMessageInQueue();
+        }, 900);
+      }, typingDelay);
+    }
+
+    function updateUnreadBadges() {
+      let totalUnread = 0;
+      Object.values(GAME_STATE.unreadCounts).forEach((c) => { totalUnread += c; });
+      const desktopBadge = document.getElementById("desktop-msg-badge");
+      if (desktopBadge) {
+        if (totalUnread > 0) {
+          desktopBadge.textContent = totalUnread;
+          desktopBadge.classList.remove("hidden");
+        } else {
+          desktopBadge.classList.add("hidden");
+        }
+      }
+    }
+
+    /* ---------------------------------------------------------------------
+       DESKTOP BOOT & PROACTIVE INCOMING DUSKWOOD MESSAGES
+       --------------------------------------------------------------------- */
+    function bootDesktopEnvironment() {
+      // Update taskbar clock
+      setInterval(() => {
+        const d = new Date();
+        document.getElementById("taskbar-clock").textContent = d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      }, 1000);
+
+      // Open Case Explorer & Duskwood Messenger by default
+      openAppWindow("explorer");
+      openAppWindow("messenger");
+
+      // Queue initial sequential turn-by-turn welcome & incoming DMs
+      enqueueTurnByTurnMessages("GROUP_CASE", [
+        { sender: "Agent Cole (FBI)", text: "Attention all personnel and witnesses: FBI Quantico has assumed jurisdiction over Cold Case 11.11.2006 (Eleanor Vance)." },
+        { sender: "rida ❤️", text: "We're online. Start by inspecting the open briefing folders in Case Explorer—then check your Private DMs." },
+        { sender: "Jake (Ghost_0x)", text: "I've linked our forensic terminal to C:\\CASE_11112006. Forty sealed vaults stand between us and the truth." }
+      ]);
+
+      setTimeout(() => {
+        enqueueTurnByTurnMessages("MARTHA", [
+          { sender: "Martha Vance", text: "Detective... thank God the FBI is here. Please message me back when you have a moment. I have Eleanor's silver locket." }
+        ]);
+      }, 4500);
+
+      setTimeout(() => {
+        enqueueTurnByTurnMessages("RIDA", [
+          { sender: "rida ❤️", text: "Hey partner ❤️ Whenever you're ready, message me here in PRV—I found an anomaly in the Duskwood power grid logs." }
+        ]);
+      }, 9500);
+    }
+
+    function checkProgressionMilestones() {
+      const count = GAME_STATE.unlockedVaults.size;
+      document.getElementById("taskbar-vault-counter").textContent = `VAULTS UNLOCKED: ${count} / 40`;
+      const expCounter = document.getElementById("explorer-vault-counter");
+      if (expCounter) expCounter.textContent = `VAULTS UNLOCKED: ${count} / 40`;
+
+      if (count >= 4 && !GAME_STATE.triggeredMilestones.has("M4")) {
+        GAME_STATE.triggeredMilestones.add("M4");
+        enqueueTurnByTurnMessages("COLE", [
+          { sender: "Agent Cole", text: "Good progress on the initial vaults. Ping me here in PRV when you need the Bureau BAU clearance key for F29." }
+        ]);
+      }
+
+      if (count >= 10 && !GAME_STATE.triggeredMilestones.has("M10")) {
+        GAME_STATE.triggeredMilestones.add("M10");
+        enqueueTurnByTurnMessages("JAKE", [
+          { sender: "Jake (Ghost_0x)", text: "I just breached Duskwood Sound Lab's local server. Message me in PRV for the F32 backdoor dump." }
+        ]);
+      }
+
+      if (count >= 18 && !GAME_STATE.triggeredMilestones.has("M18")) {
+        GAME_STATE.triggeredMilestones.add("M18");
+        enqueueTurnByTurnMessages("S10", [
+          { sender: "Tariq Mansouri", text: "Detective, Agent Cole told me you're auditing the Sound Lab server. Message me privately—I wasn't even in town on Nov 11!" }
+        ]);
+      }
+
+      if (count >= 25 && !GAME_STATE.triggeredMilestones.has("M25")) {
+        GAME_STATE.triggeredMilestones.add("M25");
+        enqueueTurnByTurnMessages("S14", [
+          { sender: "Julian Mercer", text: "Detective, if you have technical questions about Studio B's acoustic isolation logs, feel free to ask me directly." }
+        ]);
+      }
+
+      if (count === 40 && !GAME_STATE.triggeredMilestones.has("M40")) {
+        GAME_STATE.triggeredMilestones.add("M40");
+        enqueueTurnByTurnMessages("GROUP_CASE", [
+          { sender: "Agent Cole (FBI)", text: "ALL 40 / 40 VAULTS UNLOCKED! Open the Final Accusation Portal on your desktop to file the indictment!" },
+          { sender: "rida ❤️", text: "You did it! Every single vault is open! Go seal the verdict!" }
+        ]);
+      }
+
+      // Refresh open windows that depend on vault counts
+      if (GAME_STATE.openWindows["explorer"]) renderExplorerContent();
+      if (GAME_STATE.openWindows["accusation"]) renderAccusationContent();
+    }
+
+    /* ---------------------------------------------------------------------
+       WINDOW MANAGER (DRAGGABLE WIN98 WINDOWS, TASKBAR TABS, Z-INDEX)
+       --------------------------------------------------------------------- */
+    const APP_CONFIGS = {
+      explorer: { title: "Case Explorer — C:\\CASE_11112006", width: "760px", height: "490px", left: "96px", top: "14px" },
+      messenger: { title: "Duskwood Comm Link — [24 MEMBERS]", width: "680px", height: "500px", left: "260px", top: "36px" },
+      terminal: { title: "FBI_FORENSICS.EXE — Command Prompt", width: "640px", height: "430px", left: "140px", top: "65px" },
+      darkroom: { title: "UV_SPECTRUM.EXE — Crime Scene Darkroom", width: "680px", height: "510px", left: "180px", top: "24px" },
+      suspects: { title: "SUSPECT_DB_20.EXE — Persons of Interest", width: "740px", height: "500px", left: "120px", top: "30px" },
+      accusation: { title: "FINAL_VERDICT.EXE — Federal Indictment Portal", width: "560px", height: "470px", left: "220px", top: "45px" }
+    };
+
+    function openAppWindow(appId) {
+      const layer = document.getElementById("windows-layer");
+      if (GAME_STATE.openWindows[appId]) {
+        const winObj = GAME_STATE.openWindows[appId];
+        winObj.minimized = false;
+        winObj.el.classList.remove("hidden");
+        focusAppWindow(appId);
+        renderTaskbarTabs();
+        return;
+      }
+
+      const cfg = APP_CONFIGS[appId];
+      const winEl = document.createElement("div");
+      winEl.id = `win-${appId}`;
+      winEl.className = "os-window win98-raised pointer-events-auto shadow-2xl";
+      winEl.style.width = cfg.width;
+      winEl.style.height = cfg.height;
+      winEl.style.left = cfg.left;
+      winEl.style.top = cfg.top;
+      winEl.style.zIndex = ++GAME_STATE.topZIndex;
+
+      winEl.innerHTML = `
+        <div class="win98-titlebar" id="titlebar-${appId}">
+          <span class="text-xs truncate pr-2">${cfg.title}</span>
+          <div class="flex items-center gap-1 shrink-0">
+            <button type="button" onclick="minimizeAppWindow('${appId}')" class="win98-btn win98-ctrl-btn" title="Minimize">_</button>
+            <button type="button" onclick="toggleMaximizeWindow('${appId}')" class="win98-btn win98-ctrl-btn" title="Maximize">□</button>
+            <button type="button" onclick="closeAppWindow('${appId}')" class="win98-btn win98-ctrl-btn" title="Close">×</button>
+          </div>
+        </div>
+        <div id="body-${appId}" class="flex-1 overflow-hidden flex flex-col bg-[#c0c0c0]"></div>
+      `;
+
+      winEl.addEventListener("mousedown", () => focusAppWindow(appId));
+      layer.appendChild(winEl);
+
+      GAME_STATE.openWindows[appId] = {
+        el: winEl,
+        minimized: false,
+        maximized: false,
+        prevRect: null
+      };
+
+      makeWindowDraggable(winEl, document.getElementById(`titlebar-${appId}`), appId);
+      renderAppBody(appId);
+      focusAppWindow(appId);
+      renderTaskbarTabs();
+    }
+
+    function focusAppWindow(appId) {
+      Object.keys(GAME_STATE.openWindows).forEach((id) => {
+        const bar = document.getElementById(`titlebar-${id}`);
+        if (bar) {
+          if (id === appId) bar.classList.remove("inactive");
+          else bar.classList.add("inactive");
+        }
+      });
+      if (GAME_STATE.openWindows[appId]) {
+        GAME_STATE.openWindows[appId].el.style.zIndex = ++GAME_STATE.topZIndex;
+      }
+      renderTaskbarTabs();
+    }
+
+    function minimizeAppWindow(appId) {
+      const w = GAME_STATE.openWindows[appId];
+      if (!w) return;
+      w.minimized = true;
+      w.el.classList.add("hidden");
+      renderTaskbarTabs();
+    }
+
+    function toggleMaximizeWindow(appId) {
+      const w = GAME_STATE.openWindows[appId];
+      if (!w) return;
+      if (!w.maximized) {
+        w.prevRect = { left: w.el.style.left, top: w.el.style.top, width: w.el.style.width, height: w.el.style.height };
+        w.el.style.left = "0px";
+        w.el.style.top = "0px";
+        w.el.style.width = "100vw";
+        w.el.style.height = "calc(100vh - 36px)";
+        w.maximized = true;
+      } else if (w.prevRect) {
+        w.el.style.left = w.prevRect.left;
+        w.el.style.top = w.prevRect.top;
+        w.el.style.width = w.prevRect.width;
+        w.el.style.height = w.prevRect.height;
+        w.maximized = false;
+      }
+      focusAppWindow(appId);
+    }
+
+    function closeAppWindow(appId) {
+      const w = GAME_STATE.openWindows[appId];
+      if (!w) return;
+      w.el.remove();
+      delete GAME_STATE.openWindows[appId];
+      renderTaskbarTabs();
+    }
+
+    function renderTaskbarTabs() {
+      const container = document.getElementById("taskbar-tabs");
+      if (!container) return;
+      container.innerHTML = "";
+      Object.keys(GAME_STATE.openWindows).forEach((appId) => {
+        const w = GAME_STATE.openWindows[appId];
+        const btn = document.createElement("button");
+        btn.className = `win98-btn px-2.5 py-0.5 text-xs truncate max-w-[165px] text-left ${!w.minimized ? "active-tab font-bold" : ""}`;
+        btn.textContent = APP_CONFIGS[appId].title.split("—")[0].trim();
+        btn.onclick = () => {
+          if (w.minimized) {
+            openAppWindow(appId);
+          } else {
+            focusAppWindow(appId);
+          }
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function makeWindowDraggable(winEl, handleEl, appId) {
+      let isDragging = false;
+      let startX = 0, startY = 0, origLeft = 0, origTop = 0;
+
+      handleEl.addEventListener("mousedown", (e) => {
+        if (e.target.tagName === "BUTTON" || window.innerWidth < 768) return;
+        isDragging = true;
+        focusAppWindow(appId);
+        startX = e.clientX;
+        startY = e.clientY;
+        origLeft = winEl.offsetLeft;
+        origTop = winEl.offsetTop;
+      });
+
+      window.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        winEl.style.left = Math.max(0, Math.min(window.innerWidth - 120, origLeft + dx)) + "px";
+        winEl.style.top = Math.max(0, Math.min(window.innerHeight - 70, origTop + dy)) + "px";
+      });
+
+      window.addEventListener("mouseup", () => {
+        isDragging = false;
+      });
+    }
+
+    function toggleStartMenu(forceState) {
+      const menu = document.getElementById("start-menu");
+      if (typeof forceState === "boolean") {
+        menu.classList.toggle("hidden", !forceState);
+      } else {
+        menu.classList.toggle("hidden");
+      }
+    }
+
+    function renderAppBody(appId) {
+      if (appId === "explorer") renderExplorerContent();
+      else if (appId === "messenger") renderMessengerUI();
+      else if (appId === "terminal") renderTerminalUI();
+      else if (appId === "darkroom") renderDarkroomUI();
+      else if (appId === "suspects") renderSuspectsUI();
+      else if (appId === "accusation") renderAccusationContent();
+    }
+
+    /* ---------------------------------------------------------------------
+       APP 1: CASE EXPLORER (NESTED TREE + 40 SEALED VAULTS + FILE VIEWER)
+       --------------------------------------------------------------------- */
+    function renderExplorerContent() {
+      const body = document.getElementById("body-explorer");
+      if (!body) return;
+
+      const unlockedCount = GAME_STATE.unlockedVaults.size;
+      const path = GAME_STATE.activeExplorerPath;
+
+      // Build left folder tree HTML
+      let treeHtml = `
+        <div onclick="selectExplorerPath('ROOT')" class="cursor-pointer px-1.5 py-1 text-xs font-bold ${path === 'ROOT' ? 'bg-[#000080] text-white' : 'hover:bg-gray-200'}">
+          📁 C:\\CASE_11112006
+        </div>
+      `;
+
+      Object.keys(OPEN_DIRECTORIES).forEach((dirName) => {
+        const isSel = path === dirName;
+        treeHtml += `
+          <div onclick="selectExplorerPath('${dirName}')" class="cursor-pointer pl-4 pr-1.5 py-1 text-xs truncate ${isSel ? 'bg-[#000080] text-white font-bold' : 'hover:bg-gray-200'}">
+            📂 ${dirName}
+          </div>
+        `;
+      });
+
+      const isVaultRoot = path === "VAULTS_40_SEALED";
+      treeHtml += `
+        <div onclick="selectExplorerPath('VAULTS_40_SEALED')" class="cursor-pointer pl-4 pr-1.5 py-1 text-xs font-bold truncate ${isVaultRoot ? 'bg-[#000080] text-white' : 'text-[#000080] hover:bg-gray-200'}">
+          🔐 VAULTS_40_SEALED (${unlockedCount}/40)
+        </div>
+      `;
+
+      VAULTS_DATA.forEach((v) => {
+        const isUnlocked = GAME_STATE.unlockedVaults.has(v.id);
+        const isSel = path === v.id;
+        treeHtml += `
+          <div onclick="handleVaultClick('${v.id}')" class="cursor-pointer pl-7 pr-1.5 py-0.5 text-[11px] truncate ${isSel ? 'bg-[#000080] text-white font-bold' : 'hover:bg-gray-200'}">
+            ${isUnlocked ? "🔓" : "🔒"} ${v.folderName}
+          </div>
+        `;
+      });
+
+      // Build right pane content
+      let rightHtml = "";
+      if (GAME_STATE.activeFileContent) {
+        rightHtml = `
+          <div class="flex items-center justify-between bg-[#dfdfdf] px-2 py-1 border-b border-gray-500">
+            <span class="text-xs font-bold truncate">📄 ${GAME_STATE.activeFileContent.name}</span>
+            <button onclick="GAME_STATE.activeFileContent=null; renderExplorerContent();" class="win98-btn px-2 py-0.5 text-xs">← Back to Folder</button>
+          </div>
+          <pre class="selectable-text flex-1 p-3 text-xs font-mono whitespace-pre-wrap overflow-y-auto bg-white text-black leading-relaxed">${escapeHtml(GAME_STATE.activeFileContent.text)}</pre>
+        `;
+      } else if (path === "ROOT") {
+        rightHtml = `
+          <div class="p-3 grid grid-cols-2 sm:grid-cols-3 gap-2.5 overflow-y-auto">
+            ${Object.keys(OPEN_DIRECTORIES).map((d) => `
+              <button onclick="selectExplorerPath('${d}')" class="win98-btn p-2.5 flex flex-col items-center gap-1 text-center">
+                <span class="text-xl">📂</span>
+                <span class="text-[11px] font-bold break-all">${d}</span>
+                <span class="text-[10px] text-green-800 font-bold">OPEN ARCHIVE</span>
+              </button>
+            `).join("")}
+            <button onclick="selectExplorerPath('VAULTS_40_SEALED')" class="win98-btn p-2.5 flex flex-col items-center gap-1 text-center bg-amber-100">
+              <span class="text-xl">🔐</span>
+              <span class="text-[11px] font-bold break-all">VAULTS_40_SEALED</span>
+              <span class="text-[10px] text-[#000080] font-bold">${unlockedCount} / 40 UNLOCKED</span>
+            </button>
+          </div>
+        `;
+      } else if (OPEN_DIRECTORIES[path]) {
+        const files = OPEN_DIRECTORIES[path];
+        rightHtml = `
+          <div class="p-3 grid grid-cols-1 sm:grid-cols-2 gap-2 overflow-y-auto">
+            ${Object.keys(files).map((fname) => `
+              <button onclick="openExplorerFile('${path}', '${fname}')" class="win98-btn p-2.5 flex items-center gap-2.5 text-left">
+                <span class="text-lg">📄</span>
+                <div class="min-w-0">
+                  <div class="text-xs font-bold truncate">${fname}</div>
+                  <div class="text-[10px] text-gray-700">Click to inspect document</div>
+                </div>
+              </button>
+            `).join("")}
+          </div>
+        `;
+      } else if (path === "VAULTS_40_SEALED") {
+        rightHtml = `
+          <div class="p-2.5 grid grid-cols-1 sm:grid-cols-2 gap-2 overflow-y-auto">
+            ${VAULTS_DATA.map((v) => {
+              const isUnlocked = GAME_STATE.unlockedVaults.has(v.id);
+              return `
+                <button onclick="handleVaultClick('${v.id}')" class="win98-btn p-2 flex items-start gap-2 text-left ${isUnlocked ? 'bg-emerald-50' : ''}">
+                  <span class="text-base mt-0.5">${isUnlocked ? "🔓" : "🔒"}</span>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-xs font-bold truncate">${v.folderName}</div>
+                    <div class="text-[10px] ${isUnlocked ? 'text-emerald-800 font-bold' : 'text-gray-700'} truncate">
+                      ${isUnlocked ? "UNLOCKED — Click to view files" : v.sourceNote}
+                    </div>
+                  </div>
+                </button>
+              `;
+            }).join("")}
+          </div>
+        `;
+      } else {
+        // Specific unlocked vault folder
+        const vault = VAULTS_DATA.find((x) => x.id === path);
+        if (vault && GAME_STATE.unlockedVaults.has(vault.id)) {
+          rightHtml = `
+            <div class="bg-emerald-100 border-b border-emerald-700 px-3 py-1.5 text-xs font-bold text-emerald-900">
+              🔓 ${vault.folderName} — DECRYPTED & VERIFIED
+            </div>
+            <div class="p-3 grid grid-cols-1 gap-2 overflow-y-auto">
+              ${Object.keys(vault.files).map((fname) => `
+                <button onclick="openVaultFile('${vault.id}', '${fname}')" class="win98-btn p-3 flex items-center gap-3 text-left">
+                  <span class="text-xl">📄</span>
+                  <div>
+                    <div class="text-xs font-bold">${fname}</div>
+                    <div class="text-[11px] text-gray-700">Click to read decrypted evidence file</div>
+                  </div>
+                </button>
+              `).join("")}
+            </div>
+          `;
+        }
+      }
+
+      body.innerHTML = `
+        <!-- Top Toolbar & Vault Counter -->
+        <div class="px-2.5 py-1.5 bg-[#c0c0c0] border-b border-gray-500 flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-1.5 text-xs">
+            <button onclick="selectExplorerPath('ROOT')" class="win98-btn px-2 py-0.5 font-bold">Root</button>
+            <button onclick="selectExplorerPath('VAULTS_40_SEALED')" class="win98-btn px-2 py-0.5 font-bold">40 Vaults</button>
+            <span class="win98-sunken px-2 py-0.5 font-mono text-[11px] bg-white">C:\\CASE_11112006\\${path === 'ROOT' ? '' : path}</span>
+          </div>
+          <div id="explorer-vault-counter" class="win98-sunken px-2.5 py-0.5 text-xs font-bold text-[#000080] bg-amber-100">
+            VAULTS UNLOCKED: ${unlockedCount} / 40
+          </div>
+        </div>
+
+        <!-- Split Pane -->
+        <div class="flex-1 flex flex-col sm:flex-row overflow-hidden">
+          <!-- Left Tree -->
+          <div class="win98-sunken w-full sm:w-60 h-32 sm:h-full overflow-y-auto p-1 bg-white shrink-0">
+            ${treeHtml}
+          </div>
+          <!-- Right File Content -->
+          <div class="win98-sunken flex-1 h-full overflow-hidden flex flex-col bg-white">
+            ${rightHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    function selectExplorerPath(newPath) {
+      GAME_STATE.activeExplorerPath = newPath;
+      GAME_STATE.activeFileContent = null;
+      renderExplorerContent();
+    }
+
+    function openExplorerFile(dirName, fileName) {
+      GAME_STATE.activeFileContent = {
+        name: fileName,
+        text: OPEN_DIRECTORIES[dirName][fileName]
+      };
+      renderExplorerContent();
+    }
+
+    function openVaultFile(vaultId, fileName) {
+      const v = VAULTS_DATA.find((x) => x.id === vaultId);
+      if (!v) return;
+      GAME_STATE.activeFileContent = {
+        name: fileName,
+        text: v.files[fileName]
+      };
+      renderExplorerContent();
+    }
+
+    function handleVaultClick(vaultId) {
+      const vault = VAULTS_DATA.find((v) => v.id === vaultId);
+      if (!vault) return;
+
+      if (GAME_STATE.unlockedVaults.has(vaultId)) {
+        GAME_STATE.activeExplorerPath = vaultId;
+        GAME_STATE.activeFileContent = null;
+        renderExplorerContent();
+        return;
+      }
+
+      // Open Win98 Vault Password Dialog
+      GAME_STATE.pendingVaultId = vaultId;
+      document.getElementById("vault-modal-folder-name").textContent = vault.folderName;
+      document.getElementById("vault-modal-source").textContent = vault.sourceNote;
+      document.getElementById("vault-password-input").value = "";
+      document.getElementById("vault-modal-error").classList.add("hidden");
+      document.getElementById("vault-modal").classList.remove("hidden");
+      setTimeout(() => document.getElementById("vault-password-input").focus(), 40);
+    }
+
+    function closeVaultModal() {
+      document.getElementById("vault-modal").classList.add("hidden");
+      GAME_STATE.pendingVaultId = null;
+    }
+
+    document.getElementById("vault-modal-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const vaultId = GAME_STATE.pendingVaultId;
+      if (!vaultId) return;
+      const vault = VAULTS_DATA.find((v) => v.id === vaultId);
+      const entered = document.getElementById("vault-password-input").value.trim().toUpperCase();
+
+      if (vault && entered === vault.key) {
+        GAME_STATE.unlockedVaults.add(vaultId);
+        closeVaultModal();
+        GAME_STATE.activeExplorerPath = vaultId;
+        GAME_STATE.activeFileContent = null;
+        checkProgressionMilestones();
+      } else {
+        document.getElementById("vault-modal-error").classList.remove("hidden");
+        document.getElementById("vault-password-input").select();
+      }
+    });
+
+    /* ---------------------------------------------------------------------
+       APP 2: DUSKWOOD MESSENGER (GROUP CHAT [24 MEMBERS] + PRIVATE DMs)
+       --------------------------------------------------------------------- */
+    function getAllChatChannels() {
+      const coreChannels = [
+        { id: "GROUP_CASE", name: "📢 CASE 11.11.2006 [24 MEMBERS]", tag: "GROUP", highlight: true },
+        { id: "MARTHA", name: "Martha Vance (Mother)", tag: "PRV", highlight: true },
+        { id: "COLE", name: "Agent Cole (FBI)", tag: "PRV", highlight: true },
+        { id: "RIDA", name: "rida ❤️", tag: "PRV", highlight: true },
+        { id: "JAKE", name: "Jake (Ghost_0x)", tag: "PRV", highlight: true }
+      ];
+      const suspectChannels = SUSPECTS_DATA.map((s) => ({
+        id: s.id,
+        name: `${s.num} ${s.name}`,
+        tag: "PRV",
+        highlight: s.id === "S10" || s.id === "S14"
+      }));
+      return [...coreChannels, ...suspectChannels];
+    }
+
+    function selectChatChannel(chatId) {
+      GAME_STATE.activeChatId = chatId;
+      GAME_STATE.unreadCounts[chatId] = 0;
+      updateUnreadBadges();
+      renderMessengerUI();
+    }
+
+    function renderMessengerUI() {
+      const body = document.getElementById("body-messenger");
+      if (!body) return;
+
+      const activeId = GAME_STATE.activeChatId;
+      const channels = getAllChatChannels();
+      const history = GAME_STATE.chatHistory[activeId] || [];
+      const typer = GAME_STATE.activeTyper[activeId];
+
+      // Determine dialogue prompts for current channel
+      let promptButtonsHtml = "";
+      if (activeId === "GROUP_CASE") {
+        promptButtonsHtml = DIALOGUE_TREES.GROUP_CASE.prompts.map((p, idx) => `
+          <button onclick="triggerGroupPrompt(${idx})" class="win98-btn px-2.5 py-1 text-left text-[11px] leading-snug">
+            ▸ ${escapeHtml(p.label)}
+          </button>
+        `).join("");
+      } else if (DIALOGUE_TREES[activeId]) {
+        const tree = DIALOGUE_TREES[activeId];
+        const stageIdx = GAME_STATE.dialogueStages[activeId] || 0;
+        const stage = tree.stages[Math.min(stageIdx, tree.stages.length - 1)];
+        promptButtonsHtml = `
+          <button onclick="triggerPrvStage('${activeId}')" class="win98-btn px-2.5 py-1 text-left text-[11px] font-bold text-[#000080] leading-snug">
+            ▸ ${escapeHtml(stage.prompt)}
+          </button>
+        `;
+      } else {
+        // Dynamic 3-turn interrogation for any of the remaining 18 suspects
+        const suspect = SUSPECTS_DATA.find((s) => s.id === activeId);
+        if (suspect) {
+          const st = GAME_STATE.dialogueStages[activeId] || 0;
+          const labels = [
+            `Ask ${suspect.name} to confirm their 11:11 PM alibi`,
+            `Question ${suspect.name} about their motive & connection to Eleanor`,
+            `Ask ${suspect.name} if they noticed anyone suspicious near Sector 4`
+          ];
+          promptButtonsHtml = `
+            <button onclick="triggerSuspectInterrogation('${activeId}')" class="win98-btn px-2.5 py-1 text-left text-[11px] leading-snug">
+              ▸ ${escapeHtml(labels[st % labels.length])}
+            </button>
+          `;
+        }
+      }
+
+      const activeChannelObj = channels.find((c) => c.id === activeId) || channels[0];
+
+      body.innerHTML = `
+        <div class="flex-1 flex flex-col sm:flex-row overflow-hidden">
+          <!-- Left Sidebar: Group + All 24 Contacts -->
+          <div class="win98-sunken w-full sm:w-56 h-28 sm:h-full overflow-y-auto p-1 bg-white shrink-0">
+            <div class="text-[10px] font-bold text-gray-600 px-1.5 py-0.5 uppercase border-b border-gray-300">
+              Active Channels (24 Members)
+            </div>
+            ${channels.map((ch) => {
+              const unread = GAME_STATE.unreadCounts[ch.id] || 0;
+              const isSel = ch.id === activeId;
+              return `
+                <button onclick="selectChatChannel('${ch.id}')" class="w-full flex items-center justify-between px-1.5 py-1 text-left text-[11px] ${isSel ? 'bg-[#000080] text-white font-bold' : 'hover:bg-gray-200'}">
+                  <span class="truncate pr-1">${escapeHtml(ch.name)}</span>
+                  <span class="flex items-center gap-1 shrink-0">
+                    ${unread > 0 ? `<span class="bg-red-600 text-white text-[9px] font-bold px-1.5 rounded-full">${unread}</span>` : ""}
+                  </span>
+                </button>
+              `;
+            }).join("")}
+          </div>
+
+          <!-- Right Chat Thread & Controls -->
+          <div class="flex-1 flex flex-col overflow-hidden bg-[#c0c0c0]">
+            <!-- Chat Header -->
+            <div class="px-3 py-1.5 bg-[#000080] text-white text-xs font-bold flex items-center justify-between">
+              <span class="truncate">${escapeHtml(activeChannelObj.name)}</span>
+              <span class="text-[10px] font-mono bg-emerald-700 px-1.5 py-0.5 rounded">ENCRYPTED</span>
+            </div>
+
+            <!-- Messages Scroll Feed -->
+            <div id="chat-messages-feed" class="win98-sunken flex-1 p-2.5 overflow-y-auto space-y-2 bg-[#f8fafc] selectable-text">
+              ${history.length === 0 ? `<div class="text-xs text-gray-500 italic text-center py-6">Secure channel initialized. Select a prompt below or type a message to begin.</div>` : ""}
+              ${history.map((m) => `
+                <div class="flex flex-col ${m.isUser ? 'items-end' : 'items-start'}">
+                  <div class="text-[10px] font-bold ${m.isUser ? 'text-[#000080]' : 'text-gray-700'} mb-0.5">
+                    ${escapeHtml(m.sender)} <span class="font-normal text-gray-500">[${m.time}]</span>
+                  </div>
+                  <div class="max-w-[85%] px-2.5 py-1.5 text-xs rounded-sm border ${m.isUser ? 'bg-[#dbeafe] border-[#1e40af] text-black' : 'bg-white border-gray-400 text-black shadow-sm'}">
+                    ${escapeHtml(m.text)}
+                  </div>
+                </div>
+              `).join("")}
+
+              ${typer ? `
+                <div class="flex items-center gap-2 text-xs font-bold text-[#000080] bg-amber-50 border border-amber-400 px-2.5 py-1.5 w-fit">
+                  <span>${escapeHtml(typer)} is typing</span>
+                  <span class="inline-flex gap-0.5">
+                    <span class="typing-dot">.</span><span class="typing-dot">.</span><span class="typing-dot">.</span>
+                  </span>
+                </div>
+              ` : ""}
+            </div>
+
+            <!-- Branching Dialogue Options -->
+            <div class="p-1.5 bg-[#dfdfdf] border-t border-gray-500 flex flex-col gap-1">
+              ${promptButtonsHtml}
+            </div>
+
+            <!-- Free-Text Custom Input -->
+            <form onsubmit="handleCustomChatSend(event)" class="p-1.5 bg-[#c0c0c0] border-t border-gray-500 flex gap-1.5">
+              <input id="custom-chat-input" type="text" placeholder="Type a custom message or question..." class="win98-sunken flex-1 px-2 py-1 text-xs" />
+              <button type="submit" class="win98-btn px-3 py-1 text-xs font-bold">Send</button>
+            </form>
+          </div>
+        </div>
+      `;
+
+      const feed = document.getElementById("chat-messages-feed");
+      if (feed) feed.scrollTop = feed.scrollHeight;
+    }
+
+    function appendUserChatMessage(chatId, text) {
+      if (!GAME_STATE.chatHistory[chatId]) GAME_STATE.chatHistory[chatId] = [];
+      const now = new Date();
+      GAME_STATE.chatHistory[chatId].push({
+        sender: "FBI Special Agent (You)",
+        text,
+        time: now.toTimeString().slice(0, 5),
+        isUser: true
+      });
+      renderMessengerUI();
+    }
+
+    function triggerGroupPrompt(idx) {
+      const promptObj = DIALOGUE_TREES.GROUP_CASE.prompts[idx];
+      if (!promptObj) return;
+      appendUserChatMessage("GROUP_CASE", promptObj.userText);
+      enqueueTurnByTurnMessages("GROUP_CASE", promptObj.replies);
+    }
+
+    function triggerPrvStage(chatId) {
+      const tree = DIALOGUE_TREES[chatId];
+      if (!tree) return;
+      const stageIdx = GAME_STATE.dialogueStages[chatId] || 0;
+      const stage = tree.stages[Math.min(stageIdx, tree.stages.length - 1)];
+      GAME_STATE.dialogueStages[chatId] = stageIdx + 1;
+
+      appendUserChatMessage(chatId, stage.userText);
+      enqueueTurnByTurnMessages(chatId, stage.replies);
+    }
+
+    function triggerSuspectInterrogation(suspectId) {
+      const suspect = SUSPECTS_DATA.find((s) => s.id === suspectId);
+      if (!suspect) return;
+      const st = GAME_STATE.dialogueStages[suspectId] || 0;
+      GAME_STATE.dialogueStages[suspectId] = st + 1;
+
+      const turns = [
+        {
+          user: `I'm verifying your statement for 11:11 PM on November 11. Walk me through your exact movements.`,
+          reply: `${suspect.alibi} I have nothing to hide from the Bureau.`
+        },
+        {
+          user: `Our records show a potential conflict between you and Eleanor Vance prior to her disappearance.`,
+          reply: `People in Duskwood love to gossip. ${suspect.motive} That doesn't make me a kidnapper.`
+        },
+        {
+          user: `Did you see or hear anything unusual near Duskwood Sound Lab or Sector 4 that night?`,
+          reply: `Only that someone at the Sound Lab was working way past midnight—the isolation booth lights were still humming when I passed Main Street.`
+        }
+      ];
+
+      const chosen = turns[st % turns.length];
+      appendUserChatMessage(suspectId, chosen.user);
+      enqueueTurnByTurnMessages(suspectId, [{ sender: suspect.name, text: chosen.reply }]);
+    }
+
+    function handleCustomChatSend(e) {
+      e.preventDefault();
+      const input = document.getElementById("custom-chat-input");
+      if (!input) return;
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = "";
+
+      const chatId = GAME_STATE.activeChatId;
+      appendUserChatMessage(chatId, text);
+
+      if (chatId === "GROUP_CASE") {
+        enqueueTurnByTurnMessages("GROUP_CASE", [
+          { sender: "Agent Cole (FBI)", text: "Noted in the official case log, Detective." },
+          { sender: "rida ❤️", text: "Keep cross-referencing those clues with the 40 vaults!" }
+        ]);
+      } else if (chatId === "RIDA") {
+        enqueueTurnByTurnMessages("RIDA", [
+          { sender: "rida ❤️", text: "I'm right here with you ❤️ Check F31_RIDA_ENCRYPTED_NOTE with HEART1111 if you haven't opened it yet!" }
+        ]);
+      } else if (chatId === "MARTHA") {
+        enqueueTurnByTurnMessages("MARTHA", [
+          { sender: "Martha Vance", text: "Please check vaults F27 (ANGEL1988) and F28 (HOPE2006)... everything Eleanor hid is inside." }
+        ]);
+      } else if (chatId === "COLE") {
+        enqueueTurnByTurnMessages("COLE", [
+          { sender: "Agent Cole", text: "Bureau vaults F29 (QUANTI77) and F30 (BADGE804) contain our classified federal intercepts." }
+        ]);
+      } else if (chatId === "JAKE") {
+        enqueueTurnByTurnMessages("JAKE", [
+          { sender: "Jake (Ghost_0x)", text: "My server dump is waiting in F32_JAKE_BACKDOOR_DUMP — key ZERO_DAY." }
+        ]);
+      } else if (chatId === "S10") {
+        enqueueTurnByTurnMessages("S10", [
+          { sender: "Tariq Mansouri", text: "Inspect F33_TARIQ_STUDIO_SERVER with MIXDOWN8. It proves who really used the Sound Lab on Nov 11." }
+        ]);
+      } else if (chatId === "S14") {
+        enqueueTurnByTurnMessages("S14", [
+          { sender: "Julian Mercer", text: "You can inspect Studio B's telemetry in F34_JULIAN_SOUND_BOOTH (DECIBEL0), Detective. My conscience is clear." }
+        ]);
+      } else {
+        const suspect = SUSPECTS_DATA.find((s) => s.id === chatId);
+        const name = suspect ? suspect.name : "Contact";
+        enqueueTurnByTurnMessages(chatId, [
+          { sender: name, text: "I've already told dispatch everything I know about November 11, Detective." }
+        ]);
+      }
+    }
+
+    /* ---------------------------------------------------------------------
+       APP 3: FORENSIC CLI TERMINAL (FBI_FORENSICS.EXE)
+       --------------------------------------------------------------------- */
+    function renderTerminalUI() {
+      const body = document.getElementById("body-terminal");
+      if (!body) return;
+
+      if (GAME_STATE.terminalHistory.length === 0) {
+        GAME_STATE.terminalHistory.push(
+          "FBI QUANTICO FORENSIC SHELL [Version 98.11.2006]",
+          "(C) Federal Bureau of Investigation — Cold Case Division.",
+          "Type 'help' for available decryption, git, and vault commands.\n"
+        );
+      }
+
+      body.innerHTML = `
+        <div id="cli-output" class="selectable-text flex-1 bg-[#080c10] text-[#22c55e] font-mono text-xs p-3 overflow-y-auto whitespace-pre-wrap leading-relaxed">${escapeHtml(GAME_STATE.terminalHistory.join("\n"))}</div>
+        <form onsubmit="handleCliSubmit(event)" class="bg-[#080c10] border-t border-gray-700 px-3 py-2 flex items-center gap-2 font-mono text-xs">
+          <span class="text-amber-400 font-bold shrink-0">${escapeHtml(GAME_STATE.terminalCwd)}&gt;</span>
+          <input id="cli-input" type="text" class="flex-1 bg-transparent text-[#22c55e] focus:outline-none" autocomplete="off" spellcheck="false" />
+        </form>
+      `;
+
+      const out = document.getElementById("cli-output");
+      if (out) out.scrollTop = out.scrollHeight;
+      const inp = document.getElementById("cli-input");
+      if (inp) inp.focus();
+    }
+
+    function handleCliSubmit(e) {
+      e.preventDefault();
+      const inp = document.getElementById("cli-input");
+      if (!inp) return;
+      const raw = inp.value.trim();
+      if (!raw) return;
+      inp.value = "";
+
+      GAME_STATE.terminalHistory.push(`${GAME_STATE.terminalCwd}> ${raw}`);
+      const response = executeCliCommand(raw);
+      if (response !== null) {
+        GAME_STATE.terminalHistory.push(response);
+      }
+      renderTerminalUI();
+    }
+
+    function executeCliCommand(raw) {
+      const parts = raw.split(/\s+/);
+      const cmd = parts[0].toLowerCase();
+      const arg1 = parts[1] || "";
+      const rest = parts.slice(2).join(" ");
+
+      if (cmd === "clear" || cmd === "cls") {
+        GAME_STATE.terminalHistory = [];
+        return null;
+      }
+
+      if (cmd === "help") {
+        return [
+          "AVAILABLE FORENSIC COMMANDS:",
+          "  ls / dir                    - List directories and files in current path",
+          "  cd <folder>                 - Navigate into folder (or 'cd ..' / 'cd \\')",
+          "  cat <filename>              - Read contents of an unlocked file",
+          "  status                      - List all 40 vaults (F01..F40) and lock status",
+          "  unlock <F01..F40> <key>     - Decrypt and unlock a sealed vault",
+          "  decode morse <dots/dashes>  - Translate Morse code to ASCII",
+          "  decode binary <8bit_groups> - Translate Binary stream to ASCII",
+          "  decode hex <hex_bytes>      - Translate Hexadecimal dump to ASCII",
+          "  decode rot13 <ciphertext>   - Decode ROT13 cipher text",
+          "  decode base64 <b64_string>  - Decode Base64 payload",
+          "  git log                     - View repository commit history",
+          "  git show <hash>             - Inspect specific git commit object",
+          "  grep <keyword>              - Search keyword across all unlocked files",
+          "  clear                       - Clear terminal screen"
+        ].join("\n");
+      }
+
+      if (cmd === "status") {
+        const lines = [`VAULT LOCK STATUS (${GAME_STATE.unlockedVaults.size} / 40 UNLOCKED):`];
+        VAULTS_DATA.forEach((v) => {
+          const st = GAME_STATE.unlockedVaults.has(v.id) ? "[UNLOCKED]" : "[ LOCKED ]";
+          lines.push(`  ${v.id}  ${st}  ${v.folderName}`);
+        });
+        return lines.join("\n");
+      }
+
+      if (cmd === "unlock") {
+        const targetId = arg1.toUpperCase();
+        const key = rest.trim().toUpperCase();
+        const vault = VAULTS_DATA.find((v) => v.id === targetId || v.folderName === targetId);
+        if (!vault) return `ERROR: Unknown vault identifier '${arg1}'. Use F01 through F40.`;
+        if (GAME_STATE.unlockedVaults.has(vault.id)) return `INFO: ${vault.folderName} is already unlocked.`;
+        if (key === vault.key) {
+          GAME_STATE.unlockedVaults.add(vault.id);
+          checkProgressionMilestones();
+          return `SUCCESS: ${vault.folderName} DECRYPTED! (${GAME_STATE.unlockedVaults.size}/40 unlocked)`;
+        }
+        return `ACCESS DENIED: Invalid decryption key for ${vault.folderName}.`;
+      }
+
+      if (cmd === "ls" || cmd === "dir") {
+        const cwd = GAME_STATE.terminalCwd;
+        if (cwd === "C:\\CASE_11112006") {
+          return [
+            "Directory of C:\\CASE_11112006:",
+            "  <DIR>  00_CASE_BRIEFING",
+            "  <DIR>  01_SIGNALS_MORSE",
+            "  <DIR>  02_CIPHERS_ENCRYPTED",
+            "  <DIR>  03_GIT_REPOSITORY",
+            "  <DIR>  04_FORENSIC_NOTES",
+            "  <DIR>  VAULTS_40_SEALED"
+          ].join("\n");
+        }
+        const sub = cwd.replace("C:\\CASE_11112006\\", "");
+        if (OPEN_DIRECTORIES[sub]) {
+          return `Directory of ${cwd}:\n` + Object.keys(OPEN_DIRECTORIES[sub]).map((f) => `  <FILE> ${f}`).join("\n");
+        }
+        if (sub === "VAULTS_40_SEALED") {
+          return VAULTS_DATA.map((v) => `  ${GAME_STATE.unlockedVaults.has(v.id) ? "[UNLOCKED]" : "[LOCKED]  "} ${v.folderName}`).join("\n");
+        }
+        const vault = VAULTS_DATA.find((v) => v.id === sub || v.folderName === sub);
+        if (vault) {
+          if (!GAME_STATE.unlockedVaults.has(vault.id)) return `ERROR: ${vault.folderName} is LOCKED. Run 'unlock ${vault.id} <key>'.`;
+          return Object.keys(vault.files).map((f) => `  <FILE> ${f}`).join("\n");
+        }
+        return "Empty directory.";
+      }
+
+      if (cmd === "cd") {
+        if (!arg1 || arg1 === "\\" || arg1 === "/") {
+          GAME_STATE.terminalCwd = "C:\\CASE_11112006";
+          return "";
+        }
+        if (arg1 === "..") {
+          GAME_STATE.terminalCwd = "C:\\CASE_11112006";
+          return "";
+        }
+        const target = arg1.toUpperCase().replace(/^\\+/, "");
+        if (OPEN_DIRECTORIES[target] || target === "VAULTS_40_SEALED") {
+          GAME_STATE.terminalCwd = `C:\\CASE_11112006\\${target}`;
+          return "";
+        }
+        const vault = VAULTS_DATA.find((v) => v.id === target || v.folderName === target);
+        if (vault) {
+          if (!GAME_STATE.unlockedVaults.has(vault.id)) {
+            return `ACCESS DENIED: ${vault.folderName} is locked. Unlock it first.`;
+          }
+          GAME_STATE.terminalCwd = `C:\\CASE_11112006\\${vault.folderName}`;
+          return "";
+        }
+        return `ERROR: Directory '${arg1}' not found.`;
+      }
+
+      if (cmd === "cat" || cmd === "type") {
+        if (!arg1) return "Usage: cat <filename>";
+        const fname = arg1;
+        // Search current dir first, then all open/unlocked dirs
+        for (const dir of Object.keys(OPEN_DIRECTORIES)) {
+          const match = Object.keys(OPEN_DIRECTORIES[dir]).find((f) => f.toLowerCase() === fname.toLowerCase());
+          if (match) return OPEN_DIRECTORIES[dir][match];
+        }
+        for (const v of VAULTS_DATA) {
+          if (GAME_STATE.unlockedVaults.has(v.id)) {
+            const match = Object.keys(v.files).find((f) => f.toLowerCase() === fname.toLowerCase());
+            if (match) return v.files[match];
+          }
+        }
+        return `ERROR: File '${fname}' not found or inside a locked vault.`;
+      }
+
+      if (cmd === "git") {
+        if (arg1.toLowerCase() === "log") {
+          return OPEN_DIRECTORIES["03_GIT_REPOSITORY"]["COMMIT_HISTORY.log"];
+        }
+        if (arg1.toLowerCase() === "show") {
+          const h = rest.trim().toUpperCase();
+          if (h === "A9F3") {
+            return "commit A9F3\nAuthor: j.mercer <j.mercer@duskwood-sound.org>\nDate: Sat Nov 11 22:41:09 2006\nDiff: - deleted /master_reels/1998_ravenhill_incident_unedited.wav\n[Hint: Use commit hash A9F3 on F06_GIT_COMMIT_ALPHA]";
+          }
+          return `Commit object '${rest}' inspected. No anomalies.`;
+        }
+        return "Usage: git log | git show <hash>";
+      }
+
+      if (cmd === "decode") {
+        const mode = arg1.toLowerCase();
+        const payload = rest.trim();
+        if (!payload) return "Usage: decode <morse|binary|hex|rot13|base64> <data>";
+
+        if (mode === "morse") {
+          const MORSE_MAP = {
+            ".-": "A", "-...": "B", "-.-.": "C", "-..": "D", ".": "E", "..-.": "F",
+            "--.": "G", "....": "H", "..": "I", ".---": "J", "-.-": "K", ".-..": "L",
+            "--": "M", "-.": "N", "---": "O", ".--.": "P", "--.-": "Q", ".-.": "R",
+            "...": "S", "-": "T", "..-": "U", "...-": "V", ".--": "W", "-..-": "X",
+            "-.--": "Y", "--..": "Z", "-----": "0", ".----": "1", "..---": "2",
+            "...--": "3", "....-": "4", ".....": "5", "-....": "6", "--...": "7",
+            "---..": "8", "----.": "9"
+          };
+          const decoded = payload.split(/\s+/).map((tok) => MORSE_MAP[tok] || "?").join("");
+          return `DECODED MORSE OUTPUT: ${decoded}`;
+        }
+
+        if (mode === "binary") {
+          const decoded = payload.split(/\s+/).map((b) => {
+            const n = parseInt(b, 2);
+            return isNaN(n) ? "?" : String.fromCharCode(n);
+          }).join("");
+          return `DECODED BINARY OUTPUT: ${decoded}`;
+        }
+
+        if (mode === "hex") {
+          const clean = payload.replace(/[^0-9a-fA-F]/g, "");
+          let out = "";
+          for (let i = 0; i < clean.length; i += 2) {
+            const byte = parseInt(clean.substr(i, 2), 16);
+            if (!isNaN(byte)) out += String.fromCharCode(byte);
+          }
+          return `DECODED HEX OUTPUT: ${out}`;
+        }
+
+        if (mode === "rot13") {
+          const decoded = payload.replace(/[a-zA-Z]/g, (c) => {
+            const base = c <= "Z" ? 65 : 97;
+            return String.fromCharCode(((c.charCodeAt(0) - base + 13) % 26) + base);
+          });
+          return `DECODED ROT13 OUTPUT: ${decoded}`;
+        }
+
+        if (mode === "base64") {
+          try {
+            return `DECODED BASE64 OUTPUT: ${atob(payload)}`;
+          } catch (err) {
+            return "ERROR: Invalid Base64 input string.";
+          }
+        }
+        return "Supported modes: morse, binary, hex, rot13, base64";
+      }
+
+      if (cmd === "grep") {
+        const kw = [arg1, rest].join(" ").trim().toLowerCase();
+        if (!kw) return "Usage: grep <keyword>";
+        const hits = [];
+        Object.keys(OPEN_DIRECTORIES).forEach((d) => {
+          Object.keys(OPEN_DIRECTORIES[d]).forEach((f) => {
+            if (OPEN_DIRECTORIES[d][f].toLowerCase().includes(kw)) {
+              hits.push(`  [OPEN] ${d}\\${f}`);
+            }
+          });
+        });
+        VAULTS_DATA.forEach((v) => {
+          if (GAME_STATE.unlockedVaults.has(v.id)) {
+            Object.keys(v.files).forEach((f) => {
+              if (v.files[f].toLowerCase().includes(kw)) {
+                hits.push(`  [${v.id}] ${v.folderName}\\${f}`);
+              }
+            });
+          }
+        });
+        return hits.length ? `GREP MATCHES FOR '${kw}':\n${hits.join("\n")}` : `No matches found for '${kw}' in unlocked files.`;
+      }
+
+      return `Unknown command '${cmd}'. Type 'help' for command reference.`;
+    }
+
+    /* ---------------------------------------------------------------------
+       APP 4: UV CRIME SCENE DARKROOM (4 SVG PLATES + UV SLIDER 0-100%)
+       --------------------------------------------------------------------- */
+    const UV_PLATES = [
+      {
+        title: "Plate #1: Site Jota Chalk Outline & Wall",
+        desc: "Timber wall & floorboard perimeter inside Site Jota cabin (Sector 4).",
+        renderSvg: (uvOpacity, highUvOpacity) => `
+          <svg viewBox="0 0 520 260" class="w-full h-full bg-[#090d16]">
+            <!-- Cabin Planks & Wall -->
+            <rect x="0" y="0" width="520" height="150" fill="#1e1610" />
+            <rect x="0" y="150" width="520" height="110" fill="#140f0b" />
+            <line x1="0" y1="150" x2="520" y2="150" stroke="#3b2a1e" stroke-width="3" />
+            <!-- Chalk Outline -->
+            <path d="M155,215 C145,195 175,180 195,190 L245,185 L295,175 L335,192 L290,208 L330,235 L270,235 L235,212 L185,232 Z" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="6 4" />
+            <!-- Evidence Marker 01 -->
+            <polygon points="120,220 135,195 150,220" fill="#facc15" />
+            <text x="135" y="216" text-anchor="middle" fill="#000" font-size="10" font-weight="bold">1</text>
+
+            <!-- UV Fluorescent Layer (>75% reveals F11 key) -->
+            <g opacity="${uvOpacity}">
+              <rect x="55" y="45" width="230" height="58" rx="4" fill="rgba(34,211,238,0.12)" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="4 2" />
+              <text x="170" y="72" text-anchor="middle" fill="#22d3ee" font-family="monospace" font-size="22" font-weight="bold" letter-spacing="3">SILENT11</text>
+              <text x="170" y="92" text-anchor="middle" fill="#a5f3fc" font-family="monospace" font-size="10">[F11_UV_WALL_CIPHER]</text>
+            </g>
+
+            <!-- High UV Layer (>90% reveals F15 key) -->
+            <g opacity="${highUvOpacity}">
+              <rect x="355" y="18" width="145" height="44" rx="3" fill="rgba(56,189,248,0.16)" stroke="#38bdf8" stroke-width="1.5" />
+              <text x="427" y="38" text-anchor="middle" fill="#38bdf8" font-family="monospace" font-size="16" font-weight="bold">SILVER19</text>
+              <text x="427" y="53" text-anchor="middle" fill="#bae6fd" font-family="monospace" font-size="9">[F15_DARKROOM_NEGATIVES]</text>
+            </g>
+          </svg>
+        `
+      },
+      {
+        title: "Plate #2: Eleanor's Stopped 11:11 Pocket Watch",
+        desc: "Silver heirloom watch recovered beside the hearth; hands frozen at 11:11.",
+        renderSvg: (uvOpacity) => `
+          <svg viewBox="0 0 520 260" class="w-full h-full bg-[#090d16]">
+            <!-- Watch Casing -->
+            <circle cx="260" cy="135" r="92" fill="#334155" stroke="#94a3b8" stroke-width="5" />
+            <circle cx="260" cy="135" r="80" fill="#f8fafc" stroke="#475569" stroke-width="2" />
+            <rect x="248" y="25" width="24" height="18" rx="3" fill="#94a3b8" />
+            <!-- Clock Numerals -->
+            <text x="260" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">12</text>
+            <text x="322" y="140" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">3</text>
+            <text x="260" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">6</text>
+            <text x="198" y="140" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">9</text>
+            <!-- Hands Frozen at 11:11 -->
+            <line x1="260" y1="135" x2="232" y2="85" stroke="#0f172a" stroke-width="4" stroke-linecap="round" />
+            <line x1="260" y1="135" x2="305" y2="95" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" />
+            <circle cx="260" cy="135" r="5" fill="#0f172a" />
+
+            <!-- UV Fluorescent Gear Engraving (>75% reveals F12 key) -->
+            <g opacity="${uvOpacity}">
+              <circle cx="260" cy="135" r="58" fill="rgba(6,182,212,0.18)" stroke="#22d3ee" stroke-width="2" stroke-dasharray="3 3" />
+              <text x="260" y="162" text-anchor="middle" fill="#0e7490" font-family="monospace" font-size="18" font-weight="bold">CHRONO06</text>
+              <text x="260" y="178" text-anchor="middle" fill="#155e75" font-family="monospace" font-size="9.5" font-weight="bold">[F12_UV_WATCH_GEAR]</text>
+            </g>
+          </svg>
+        `
+      },
+      {
+        title: "Plate #3: Cabin VHS Magnetic Tape & Reel",
+        desc: "Tampered VHS cassette & magnetic spool seized from the Site Jota camcorder.",
+        renderSvg: (uvOpacity, highUvOpacity) => `
+          <svg viewBox="0 0 520 260" class="w-full h-full bg-[#090d16]">
+            <!-- VHS Cassette Shell -->
+            <rect x="90" y="45" width="340" height="175" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="3" />
+            <rect x="120" y="60" width="280" height="36" fill="#e2e8f0" />
+            <text x="260" y="82" text-anchor="middle" font-family="monospace" font-size="12" font-weight="bold" fill="#0f172a">DUSKWOOD ARCHIVE — 11.11.2006</text>
+            <!-- Left & Right Reels -->
+            <circle cx="185" cy="145" r="38" fill="#0f172a" stroke="#94a3b8" stroke-width="3" />
+            <circle cx="185" cy="145" r="14" fill="#cbd5e1" />
+            <circle cx="335" cy="145" r="38" fill="#0f172a" stroke="#94a3b8" stroke-width="3" />
+            <circle cx="335" cy="145" r="14" fill="#cbd5e1" />
+
+            <!-- UV Fluorescent Timecode (>75% reveals F13 key) -->
+            <g opacity="${uvOpacity}">
+              <rect x="195" y="102" width="130" height="40" rx="3" fill="rgba(34,211,238,0.18)" stroke="#22d3ee" stroke-width="1.5" />
+              <text x="260" y="123" text-anchor="middle" fill="#22d3ee" font-family="monospace" font-size="18" font-weight="bold">FRAME23</text>
+              <text x="260" y="136" text-anchor="middle" fill="#a5f3fc" font-family="monospace" font-size="8.5">[F13_UV_VHS_TIMECODE]</text>
+            </g>
+
+            <!-- High UV Layer (>90% reveals F16 key) -->
+            <g opacity="${highUvOpacity}">
+              <rect x="112" y="182" width="142" height="32" rx="3" fill="rgba(56,189,248,0.22)" stroke="#38bdf8" stroke-width="1.5" />
+              <text x="183" y="199" text-anchor="middle" fill="#38bdf8" font-family="monospace" font-size="14" font-weight="bold">CAM04OFF</text>
+              <text x="183" y="210" text-anchor="middle" fill="#bae6fd" font-family="monospace" font-size="8">[F16_CCTV_BLINDSPOT]</text>
+            </g>
+          </svg>
+        `
+      },
+      {
+        title: "Plate #4: Floorboard Luminol Blood Trace",
+        desc: "Chemiluminescent reagent spray across the Site Jota exit threshold.",
+        renderSvg: (uvOpacity) => `
+          <svg viewBox="0 0 520 260" class="w-full h-full bg-[#090d16]">
+            <!-- Floorboards -->
+            <rect x="30" y="25" width="460" height="210" fill="#1c1917" stroke="#44403c" stroke-width="2" />
+            <line x1="30" y1="78" x2="490" y2="78" stroke="#292524" stroke-width="2" />
+            <line x1="30" y1="130" x2="490" y2="130" stroke="#292524" stroke-width="2" />
+            <line x1="30" y1="182" x2="490" y2="182" stroke="#292524" stroke-width="2" />
+            <!-- Forensic Scale Ruler -->
+            <rect x="65" y="195" width="110" height="16" fill="#facc15" />
+            <text x="120" y="207" text-anchor="middle" font-family="monospace" font-size="9" font-weight="bold" fill="#000">FBI SCALE CM</text>
+
+            <!-- UV Luminol Glow (>75% reveals F14 key) -->
+            <g opacity="${uvOpacity}">
+              <ellipse cx="260" cy="125" rx="135" ry="52" fill="rgba(34,211,238,0.22)" stroke="#22d3ee" stroke-width="2" />
+              <text x="260" y="128" text-anchor="middle" fill="#22d3ee" font-family="monospace" font-size="24" font-weight="bold" letter-spacing="3">HELIX9</text>
+              <text x="260" y="148" text-anchor="middle" fill="#a5f3fc" font-family="monospace" font-size="10">[F14_UV_BLOOD_LUMINOL]</text>
+            </g>
+          </svg>
+        `
+      }
+    ];
+
+    function renderDarkroomUI() {
+      const body = document.getElementById("body-darkroom");
+      if (!body) return;
+
+      const idx = GAME_STATE.activeUvPlate;
+      const plate = UV_PLATES[idx];
+      const uv = GAME_STATE.uvIntensity;
+      const uvOpacity = uv >= 75 ? Math.min(1, (uv - 70) / 20) : 0;
+      const highUvOpacity = uv >= 90 ? Math.min(1, (uv - 88) / 10) : 0;
+      const wavelength = Math.round(420 - uv * 1.05);
+
+      body.innerHTML = `
+        <div class="p-2.5 flex-1 flex flex-col gap-2.5 overflow-y-auto">
+          <!-- Plate Selector Tabs -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+            ${UV_PLATES.map((p, i) => `
+              <button onclick="GAME_STATE.activeUvPlate=${i}; renderDarkroomUI();" class="win98-btn px-2 py-1.5 text-xs truncate ${i === idx ? 'active-tab font-bold text-[#000080]' : ''}">
+                Plate #${i + 1}
+              </button>
+            `).join("")}
+          </div>
+
+          <!-- Plate Info -->
+          <div class="win98-raised p-2 bg-[#dfdfdf] flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <div>
+              <div class="text-xs font-bold text-black">${escapeHtml(plate.title)}</div>
+              <div class="text-[11px] text-gray-700">${escapeHtml(plate.desc)}</div>
+            </div>
+            <span class="font-mono text-xs font-bold px-2 py-0.5 bg-indigo-950 text-cyan-300 border border-cyan-500 shrink-0">
+              ${wavelength}nm • UV ${uv}%
+            </span>
+          </div>
+
+          <!-- SVG Viewport -->
+          <div class="win98-sunken flex-1 min-h-[210px] overflow-hidden relative">
+            ${plate.renderSvg(uvOpacity, highUvOpacity)}
+          </div>
+
+          <!-- Interactive UV Infrared Spectrum Slider -->
+          <div class="win98-raised p-2.5 bg-[#c0c0c0]">
+            <div class="flex items-center justify-between text-xs font-bold mb-1">
+              <span>UV INFRARED SPECTRUM INTENSITY:</span>
+              <span class="text-[#000080]">${uv}% ${uv >= 90 ? "(MAX FLUORESCENCE)" : uv >= 75 ? "(LUMINOL ACTIVE)" : "(VISIBLE LIGHT)"}</span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value="${uv}"
+              oninput="GAME_STATE.uvIntensity=Number(this.value); renderDarkroomUI();"
+              class="w-full cursor-pointer accent-[#000080]"
+            />
+          </div>
+        </div>
+      `;
+    }
+
+    /* ---------------------------------------------------------------------
+       APP 5: SUSPECT DOSSIERS (ALL 20 SUSPECTS WITH EQUAL PLAUSIBILITY)
+       --------------------------------------------------------------------- */
+    function renderSuspectsUI() {
+      const body = document.getElementById("body-suspects");
+      if (!body) return;
+
+      const selectedId = GAME_STATE.selectedSuspectId || "S01";
+      const s = SUSPECTS_DATA.find((x) => x.id === selectedId) || SUSPECTS_DATA[0];
+
+      body.innerHTML = `
+        <div class="flex-1 flex flex-col sm:flex-row overflow-hidden">
+          <!-- Left List of All 20 Suspects -->
+          <div class="win98-sunken w-full sm:w-60 h-36 sm:h-full overflow-y-auto p-1 bg-white shrink-0">
+            ${SUSPECTS_DATA.map((item) => `
+              <button onclick="GAME_STATE.selectedSuspectId='${item.id}'; renderSuspectsUI();" class="w-full flex items-center justify-between px-2 py-1.5 text-left text-xs border-b border-gray-200 ${item.id === s.id ? 'bg-[#000080] text-white font-bold' : 'hover:bg-gray-100'}">
+                <span class="truncate">${item.num} ${escapeHtml(item.name)}</span>
+                <span class="text-[9px] font-mono opacity-80 shrink-0">${item.id}</span>
+              </button>
+            `).join("")}
+          </div>
+
+          <!-- Right Detailed Dossier -->
+          <div class="flex-1 p-3 overflow-y-auto bg-[#c0c0c0] flex flex-col gap-3 selectable-text">
+            <div class="win98-raised p-3 bg-[#dfdfdf] flex flex-col sm:flex-row gap-3 items-start">
+              <div class="w-24 h-24 shrink-0">${buildSuspectSvg(s)}</div>
+              <div class="flex-1 space-y-1">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <h2 class="text-base font-bold text-black m-0">SUSPECT ${s.num}: ${escapeHtml(s.name)}</h2>
+                  <span class="px-2 py-0.5 text-[10px] font-bold bg-slate-800 text-amber-300 border border-black">${escapeHtml(s.status)}</span>
+                </div>
+                <div class="text-xs text-gray-800"><strong>Age:</strong> ${s.age} | <strong>Occupation:</strong> ${escapeHtml(s.role)}</div>
+                <div class="pt-1 flex flex-wrap gap-2">
+                  <button onclick="openAppWindow('messenger'); selectChatChannel('${s.id}');" class="win98-btn px-2.5 py-1 text-xs font-bold text-[#000080]">
+                    💬 Interrogate in PRV
+                  </button>
+                  <button onclick="openAppWindow('accusation'); setAccusationSuspect('${s.id}');" class="win98-btn px-2.5 py-1 text-xs font-bold">
+                    ⚖️ Stage in Final Verdict
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="win98-sunken p-3 bg-white space-y-2.5 text-xs leading-relaxed">
+              <div>
+                <div class="font-bold text-[#000080] uppercase">Stated Alibi (Nov 11, 2006 — 11:11 PM):</div>
+                <p class="mt-0.5 text-black">${escapeHtml(s.alibi)}</p>
+              </div>
+              <div class="border-t border-gray-300 pt-2">
+                <div class="font-bold text-[#000080] uppercase">Investigative Motive / Nexus:</div>
+                <p class="mt-0.5 text-black">${escapeHtml(s.motive)}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ---------------------------------------------------------------------
+       APP 6: FINAL ACCUSATION PORTAL (40/40 VAULTS + TRUE KILLER + FINAL CODE)
+       --------------------------------------------------------------------- */
+    let stagedAccusationSuspectId = "S01";
+
+    function setAccusationSuspect(id) {
+      stagedAccusationSuspectId = id;
+      renderAccusationContent();
+    }
+
+    function renderAccusationContent() {
+      const body = document.getElementById("body-accusation");
+      if (!body) return;
+
+      const count = GAME_STATE.unlockedVaults.size;
+      const allUnlocked = count === 40;
+
+      body.innerHTML = `
+        <form onsubmit="handleFinalVerdictSubmit(event)" class="p-4 flex-1 flex flex-col justify-between gap-3 overflow-y-auto bg-[#c0c0c0]" autocomplete="off">
+          <div class="space-y-3">
+            <div class="win98-raised p-2.5 bg-[#000080] text-white text-xs font-bold tracking-wide">
+              FEDERAL BUREAU OF INVESTIGATION — FINAL INDICTMENT PORTAL
+            </div>
+
+            <!-- Condition A: 40 / 40 Vaults -->
+            <div class="win98-sunken p-2.5 bg-white flex items-center justify-between text-xs">
+              <span class="font-bold">1. FORENSIC VAULTS DECRYPTED:</span>
+              <span class="font-mono font-bold ${allUnlocked ? 'text-emerald-700' : 'text-red-700'}">
+                ${count} / 40 ${allUnlocked ? "[READY]" : "[INCOMPLETE]"}
+              </span>
+            </div>
+
+            <!-- Condition B: Prime Suspect Selection -->
+            <div class="win98-sunken p-2.5 bg-white space-y-1.5 text-xs">
+              <label for="accusation-suspect-select" class="block font-bold">2. SELECT PRIME PERPETRATOR (20 SUSPECTS):</label>
+              <select
+                id="accusation-suspect-select"
+                onchange="stagedAccusationSuspectId=this.value"
+                class="win98-sunken w-full px-2 py-1.5 text-xs font-bold bg-white"
+              >
+                ${SUSPECTS_DATA.map((s) => `
+                  <option value="${s.id}" ${s.id === stagedAccusationSuspectId ? "selected" : ""}>
+                    ${s.num} — ${escapeHtml(s.name)} (${escapeHtml(s.role)})
+                  </option>
+                `).join("")}
+              </select>
+            </div>
+
+            <!-- Condition C: Developer-Only Final Authorization Code -->
+            <div class="win98-sunken p-2.5 bg-white space-y-1.5 text-xs">
+              <label for="omega-final-code" class="block font-bold">3. OMEGA AUTHORIZATION KEY:</label>
+              <input
+                id="omega-final-code"
+                type="password"
+                class="win98-sunken w-full px-2.5 py-1.5 font-mono text-sm"
+              />
+            </div>
+
+            <div id="accusation-error" class="hidden text-xs font-bold text-red-700 bg-red-100 border border-red-700 px-2.5 py-1.5"></div>
+          </div>
+
+          <button type="submit" class="win98-btn w-full py-2.5 font-bold text-xs uppercase tracking-wider text-[#000080]">
+            SEAL INDICTMENT & EXECUTE FINAL VERDICT
+          </button>
+        </form>
+      `;
+    }
+
+    function handleFinalVerdictSubmit(e) {
+      e.preventDefault();
+      const errEl = document.getElementById("accusation-error");
+      const count = GAME_STATE.unlockedVaults.size;
+      const suspectId = document.getElementById("accusation-suspect-select").value;
+      const code = document.getElementById("omega-final-code").value;
+
+      if (count < 40) {
+        errEl.textContent = `INDICTMENT REJECTED: Only ${count} / 40 sealed vaults unlocked. Unlock all 40 vaults first.`;
+        errEl.classList.remove("hidden");
+        return;
+      }
+
+      if (suspectId !== "S14") {
+        errEl.textContent = "INDICTMENT REJECTED: Forensic evidence in F40 does not match the selected suspect.";
+        errEl.classList.remove("hidden");
+        return;
+      }
+
+      if (!verifyXorSecret(code, DEV_OMEGA_XOR)) {
+        errEl.textContent = "INDICTMENT REJECTED: INVALID OMEGA AUTHORIZATION KEY.";
+        errEl.classList.remove("hidden");
+        return;
+      }
+
+      errEl.classList.add("hidden");
+      launchFatimaVictoryCelebration();
+    }
+
+    /* ---------------------------------------------------------------------
+       FATIMA VICTORY DEDICATION: 3D TILT BADGE + FLOATING HEARTS CANVAS
+       --------------------------------------------------------------------- */
+    function launchFatimaVictoryCelebration() {
+      const screen = document.getElementById("fatima-victory-screen");
+      screen.classList.remove("hidden");
+      initFloatingHeartsCanvas();
+      init3DBadgeInteraction();
+    }
+
+    function init3DBadgeInteraction() {
+      const stage = document.getElementById("badge-stage");
+      const badge = document.getElementById("gold-badge-3d");
+      if (!stage || !badge) return;
+
+      const applyTilt = (clientX, clientY) => {
+        const rect = stage.getBoundingClientRect();
+        const normX = ((clientX - rect.left) / rect.width - 0.5) * 2;
+        const normY = ((clientY - rect.top) / rect.height - 0.5) * 2;
+        const rotY = Math.max(-28, Math.min(28, normX * 26));
+        const rotX = Math.max(-28, Math.min(28, -normY * 26));
+        badge.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.04)`;
+      };
+
+      stage.addEventListener("mousemove", (e) => applyTilt(e.clientX, e.clientY));
+      stage.addEventListener("mouseleave", () => {
+        badge.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+      });
+      stage.addEventListener("touchmove", (e) => {
+        if (e.touches && e.touches[0]) {
+          applyTilt(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+    }
+
+    function initFloatingHeartsCanvas() {
+      const canvas = document.getElementById("hearts-canvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+
+      const resize = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      };
+      resize();
+      window.addEventListener("resize", resize);
+
+      const hearts = Array.from({ length: 42 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: 8 + Math.random() * 14,
+        speedY: 0.6 + Math.random() * 1.4,
+        drift: Math.random() * Math.PI * 2,
+        alpha: 0.25 + Math.random() * 0.55,
+        gold: Math.random() > 0.65
+      }));
+
+      function drawHeart(x, y, size, color, alpha) {
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        const topCurveHeight = size * 0.3;
+        ctx.moveTo(x, y + topCurveHeight);
+        ctx.bezierCurveTo(x, y, x - size / 2, y, x - size / 2, y + topCurveHeight);
+        ctx.bezierCurveTo(x - size / 2, y + (size + topCurveHeight) / 2, x, y + (size + topCurveHeight) / 1.4, x, y + size);
+        ctx.bezierCurveTo(x, y + (size + topCurveHeight) / 1.4, x + size / 2, y + (size + topCurveHeight) / 2, x + size / 2, y + topCurveHeight);
+        ctx.bezierCurveTo(x + size / 2, y, x, y, x, y + topCurveHeight);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function animateHearts() {
+        if (document.getElementById("fatima-victory-screen").classList.contains("hidden")) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        hearts.forEach((h) => {
+          h.y -= h.speedY;
+          h.drift += 0.02;
+          const drawX = h.x + Math.sin(h.drift) * 18;
+          if (h.y < -30) {
+            h.y = canvas.height + 20;
+            h.x = Math.random() * canvas.width;
+          }
+          drawHeart(drawX, h.y, h.size, h.gold ? "#fbbf24" : "#fb7185", h.alpha);
+        });
+
+        requestAnimationFrame(animateHearts);
+      }
+      animateHearts();
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+  </script>
+</body>
+</html>
