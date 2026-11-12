@@ -2653,7 +2653,7 @@ HOW TO OBTAIN VAULT PASSWORDS:
     document.getElementById("login-form").addEventListener("submit", async (e) => {
       e.preventDefault();
       const pwd = document.getElementById("login-password").value.trim().toUpperCase();
-      const digest = await sha256Hex(pwd);
+      let digest = ""; try { digest = await sha256Hex(pwd); } catch(e) { digest = ""; }
       if (pwd === "BTC-DUSKWOOD-1111" || pwd === "1111" || digest === SECURITY_HASHES.login) {
         document.getElementById("login-screen").classList.add("hidden");
         document.getElementById("desktop-environment").classList.remove("hidden");
