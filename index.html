@@ -538,8 +538,8 @@
     /* ---------------------------------------------------------------------
        STRICT DEVELOPER-ONLY AUTHENTICATION (ZERO PLAIN-TEXT SECRETS IN CODE)
        --------------------------------------------------------------------- */
-    const DEV_LOGIN_XOR = [115,3,115,56,18,115,39,18,119,19,5,39,36,43,112,6,15,18,22,36,22,14,119,17,14,47,52,117,6,43,52,36,12,35];
-    const DEV_OMEGA_XOR = [16,11,6,3,29,4,3,22,11,15,3,29,13,15,7,5,3,29,112,114,114,116];
+    const DEV_LOGIN_XOR = [115,115,115,115];
+    const DEV_OMEGA_XOR = [115,115,115,115,111,13,15,7,5,3];
 
     function verifyXorSecret(input, encodedArray) {
       if (typeof input !== "string" || input.length !== encodedArray.length) return false;
