@@ -2798,5 +2798,102 @@
         .replace(/"/g, "&quot;");
     }
   </script>
+
+<!-- ALL_SMS_EXTRA - all dialogues longer + player talks more - inside SMS -->
+<script>
+const ALL_SMS_EXTRA = {
+"rida": [
+"YOU: Rida, wait. Explain me that 14kW spike again. Slowly. I need to understand it before I tell anyone.",
+"Rida ❤️: Okay partner. 21:47:12. Substation. Spike. Not a cut. A surge. Like someone plugged something BIG in for 36 seconds then pulled it.",
+"YOU: 36 seconds is too precise to be random. That's a timer. Or a machine.",
+"Rida ❤️: Exactly! That's what I thought! And Studio B logged an acoustic surge at the SAME second. 21:47:12. Same 36 seconds.",
+"YOU: So someone used sound to hide power? Or power to hide sound?",
+"Rida ❤️: Both. You hide one with the other. Classic. Whoever did this knows Duskwood grid better than the engineers.",
+"YOU: And you said Cole asked about me? What did you tell him?",
+"Rida ❤️: I told him nothing. I said you were just checking old logs. But partner... he knew about the spike BEFORE I told him. How?",
+"YOU: Then we don't tell Cole. Not yet. We tell no one until we check that F31 note again. Promise me.",
+"Rida ❤️: I promise. PRV only. You and me. No group chat."
+],
+"martha": [
+"YOU: Martha, it's me. I need the truth about Nov 11. Not the mother version. The real version.",
+"Martha Vance (Mother): Agent... I've been waiting for someone to ask me that properly. Eleanor didn't leave because she was angry. She left because she was scared.",
+"YOU: Scared of who? Of what happened in that house?",
+"Martha Vance (Mother): Scared of the phone calls. Blocked number. Every night at 21:08. For two weeks. She never told you that, did she?",
+"YOU: No. She told me about one message. 'Don't come home tonight.' I didn't know about the calls.",
+"Martha Vance (Mother): She hid them from everyone. She thought if she ignored them, they'd stop. They didn't stop. They got worse.",
+"YOU: Why didn't you tell the police?",
+"Martha Vance (Mother): I did. They said 'it's just prank calls.' But a mother knows. A mother KNOWS when it's not a prank.",
+"YOU: Martha, I believe you. And I'm not leaving this case until we find who called her. Stay with her tonight, okay?",
+"Martha Vance (Mother): I will. I won't leave her side. Thank you for actually listening to me."
+],
+"cole": [
+"YOU: Cole, we need to talk. Off the record. What do you know about the 21:47 spike?",
+"Agent Cole (FBI): ...Who told you about that? That log was supposed to be sealed.",
+"YOU: I have my sources. And I know you asked Rida about me. So let's stop playing games.",
+"Agent Cole (FBI): Look, I'm trying to protect this case. And protect you. There are 24 people in that Comm Link. Not all of them are clean.",
+"YOU: Then help me. Don't hide logs from me. If Studio B and the substation spiked at the same second, that's our link.",
+"Agent Cole (FBI): Fine. You want the truth? I was at the substation that night. 21:30. Checking a report. I saw someone. Brown jacket. I didn't get a face.",
+"YOU: Brown jacket? Rida said Eleanor met a man in a brown jacket at the old station. Same man?",
+"Agent Cole (FBI): Maybe. I don't know. That's why I didn't put it in the report. I didn't want to contaminate Eleanor's story.",
+"YOU: Cole, from now on, no more secrets between us. We work this together, or I work it alone.",
+"Agent Cole (FBI): Together. I promise. But be careful in that group chat. Someone is reading everything."
+],
+"jake": [
+"YOU: Jake, Ghost_0x. I need your help. No FBI report. Just you and me.",
+"Jake (Ghost_0x): Finally. Someone who asks properly. What do you need, Agent?",
+"YOU: The Duskwood power grid logs. Nov 11. 21:47. Can you get the raw telemetry, not the cleaned version?",
+"Jake (Ghost_0x): Already got it. I pulled it 3 days ago. The cleaned version hides a second spike. 21:52. Smaller. 4kW. Same substation.",
+"YOU: A second spike? Why would they hide it?",
+"Jake (Ghost_0x): Because 21:52 is when the cabin camera went dark for 11 seconds. 11 seconds. Not a glitch. A loop.",
+"YOU: So someone looped the camera AND spiked the grid? That's professional.",
+"Jake (Ghost_0x): Very professional. This isn't a random case, Agent. This is someone who knew the system. Insider.",
+"YOU: Send me the raw logs. PRV only. And Jake... don't tell the group chat.",
+"Jake (Ghost_0x): I never tell the group chat anything real. That's why I'm Ghost."
+]
+};
+let _allDone={};
+function _allTry(){
+  const txt = document.body.innerText || "";
+  for(const key in ALL_SMS_EXTRA){
+    if(_allDone[key]) continue;
+    // check if this chat is open - search for name
+    let name = key==="rida"?"rida":key==="martha"?"Martha":key==="cole"?"Cole":key==="jake"?"Jake":"";
+    if(!name) continue;
+    const els=[...document.querySelectorAll('*')].filter(e=>e.children.length<5 && e.textContent && e.textContent.includes(name) && e.textContent.includes('HEART')===false);
+    // simple: if user clicked this chat, the chat window contains that name + messages
+    // we trigger when that name appears in a large container
+    const chatEl=[...document.querySelectorAll('*')].find(e=>e.textContent && e.textContent.includes('HEART1111') && e.textContent.includes(name));
+    // fallback: if any chat is open and we haven't added yet, add for the visible chat only via click tracking
+  }
+}
+// Simpler + safer: add a small "LOAD FULL HISTORY" logic - when user opens ANY chat, append that person's full history after 1.5s
+let _lastChat="";
+document.addEventListener('click', ()=>{
+  setTimeout(()=>{
+    const bodyTxt = document.body.innerText || "";
+    let target=null;
+    if(bodyTxt.includes("Rida") && bodyTxt.includes("HEART1111")) target="rida";
+    else if(bodyTxt.includes("Martha Vance")) target="martha";
+    else if(bodyTxt.includes("Agent Cole")) target="cole";
+    else if(bodyTxt.includes("Ghost_0x") || bodyTxt.includes("Jake")) target="jake";
+    if(!target || _allDone[target]) return;
+    // find chat container = element containing HEART or Martha etc with big height
+    let container=null;
+    const all=[...document.querySelectorAll('div')];
+    for(const d of all){ if(d.scrollHeight>400 && d.textContent.includes(target==="rida"?"HEART1111":target==="martha"?"Martha":target==="cole"?"Cole":"Ghost")){ container=d; } }
+    if(!container) return;
+    ALL_SMS_EXTRA[target].forEach(msg=>{
+      const div=document.createElement('div');
+      const isYou = msg.startsWith("YOU:");
+      div.style.cssText = isYou ? "margin:8px 0 8px 40px;padding:10px 12px;background:#0a3a1a;border:1px solid #00ff41;border-radius:10px;font-size:13px;line-height:1.6;white-space:pre-wrap;color:#eaffea" : "margin:8px 40px 8px 0;padding:10px 12px;background:#1a2a3a;border-radius:10px;font-size:13px;line-height:1.6;white-space:pre-wrap";
+      div.textContent=msg;
+      container.appendChild(div);
+    });
+    _allDone[target]=true;
+  }, 1200);
+});
+</script>
+<!-- END ALL_SMS_EXTRA -->
+
 </body>
 </html>
